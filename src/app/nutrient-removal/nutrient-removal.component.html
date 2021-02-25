@@ -1,0 +1,224 @@
+<div>
+    <p-button type="button" (click)="visibleSidebar1 = true" icon="pi pi-arrow-down"></p-button>
+  
+    <p-sidebar [(visible)]="visibleSidebar1" position="top" [baseZIndex]="10000">
+      <h1 style="font-weight:normal">Select a plant</h1>
+  
+      <div class="p-d-flex">
+        <div class="p-mr-2 p-mb-2">
+          <button pButton pRipple type="button" (click)="selectPlant(1); visibleSidebar1 = false" label="Tomatos"
+            class="p-button-raised"></button>
+        </div>
+        <div class="p-mr-2 p-mb-2">
+          <button pButton pRipple type="button" (click)="selectPlant(2); visibleSidebar1 = false" label="Melons"
+            class="p-button-raised"></button>
+        </div>
+        <div class="p-mr-2 p-mb-2">
+          <button pButton pRipple type="button" (click)="selectPlant(3); visibleSidebar1 = false" label="Strawberries"
+            class="p-button-raised"></button>
+        </div>
+        <div class="p-mr-2 p-mb-2">
+          <button pButton pRipple type="button" (click)="selectPlant(4); visibleSidebar1 = false" label="Grapes"
+            class="p-button-raised"></button>
+        </div>
+        <div class="p-mr-2 p-mb-2">
+          <button pButton pRipple type="button" (click)="selectPlant(5); visibleSidebar1 = false" label="Almonds"
+            class="p-button-raised"></button>
+        </div>
+        <div class="p-mr-2 p-mb-2">
+          <button pButton pRipple type="button" (click)="selectPlant(6); visibleSidebar1 = false" label="Avocados"
+            class="p-button-raised"></button>
+        </div>
+        <div class="p-mr-2 p-mb-2">
+          <button pButton pRipple type="button" (click)="selectPlant(7); visibleSidebar1 = false" label="Walnuts"
+            class="p-button-raised"></button>
+        </div>
+        <div class="p-mr-2 p-mb-2">
+          <button pButton pRipple type="button" (click)="selectPlant(8); visibleSidebar1 = false" label="Peas"
+            class="p-button-raised"></button>
+        </div>
+      </div>
+    </p-sidebar>
+  
+    <!-- <div class="p-grid">
+      <div class="p-col-6 p-offset-4" style="padding-left: 90px;">
+        <img src="./assets/images/Agconnect_Logo.jpg" alt="Agconnect Logo">
+      </div>
+    </div> -->
+  
+    <div class="p-grid" style="padding-left: 25px;">
+      <div class="p-col-5">
+        <p-toast></p-toast>
+  
+        <div class="card" style="border: solid indianred;">
+          <p-table #dt [value]="plants" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="375px"
+            [rowHover]="true" dataKey="id">
+            <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <h2 class="p-m-0">{{selectedPlantName}} Nutrient Removal</h2>
+  
+                <span class="p-input-icon-left">
+                  <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+                    (click)="openNewPlant()"></button>
+                </span>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Amount</th>
+                <th>N</th>
+                <th>P</th>
+                <th>K</th>
+                <th>Ca</th>
+                <th></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-plant>
+              <tr>
+                <td>{{plant.tons}}</td>
+                <td>{{plant.nitrogen}}</td>
+                <td>{{plant.phosphorus}}</td>
+                <td>{{plant.potassium}}</td>
+                <td>{{plant.calcium}}</td>
+                <td>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                    (click)="deletePlant(plant)"></button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <span style="padding-left: 0px; width: 100px;" class="p-col-fixed"> Fertilizer Total:</span>
+                <span class="p-col-2">N: {{nitrogenTotal}}</span>
+                <span class="p-col-2">P: {{phosphorusTotal}}</span>
+                <span class="p-col-2">K: {{potassiumTotal}}</span>
+                <span class="p-col-2">Ca: {{calciumTotal}}</span>
+                <span class="p-col"></span>
+              </div>
+            </ng-template>
+          </p-table>
+        </div>
+  
+        <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+          styleClass="p-fluid">
+          <ng-template pTemplate="content">
+            <div class="p-field">
+              <label for="name">Name</label>
+              <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
+              <small class="p-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+            </div>
+            <div class="p-field">
+              <label for="amount">Amount</label>
+              <textarea id="amount" pInputTextarea [(ngModel)]="product.amount" required rows="3" cols="20"></textarea>
+            </div>
+          </ng-template>
+  
+          <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+              (click)="hideDialog()"></button>
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+              (click)="saveProduct()"></button>
+          </ng-template>
+        </p-dialog>
+  
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+  
+        <p-dialog [(visible)]="plantDialog" [style]="{width: '450px'}" header="Plant Nutrient Details" [modal]="true"
+          styleClass="p-fluid">
+          <ng-template pTemplate="content">
+            <div class="p-field">
+              <label for="amount">Amount</label>
+              <textarea id="amount" pInputTextarea [(ngModel)]="plant.tons" required rows="3" cols="20"></textarea>
+            </div>
+          </ng-template>
+  
+          <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+              (click)="hideDialog()"></button>
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="savePlant()"></button>
+          </ng-template>
+        </p-dialog>
+      </div>
+      <div class="p-col-1"></div>
+      <div class="p-col-5">
+        <p-toast></p-toast>
+  
+        <div class="card" style="border: solid indianred;">
+          <p-table #dt [value]="products" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="575px"
+            [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
+            [rowHover]="true" dataKey="id">
+            <ng-template pTemplate="caption">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <h2 class="p-m-0">Manage Fertilizers</h2>
+                <span class="p-input-icon-left">
+                  <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+                    (click)="openNew()"></button>
+                </span>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>N</th>
+                <th>P</th>
+                <th>K</th>
+                <th>Ca</th>
+                <th></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+              <tr>
+                <td>{{product.name}}</td>
+                <td>{{product.amount}}</td>
+                <td>{{product.nitrogen}}</td>
+                <td>{{product.phosphorus}}</td>
+                <td>{{product.potassium}}</td>
+                <td>{{product.calcium}}</td>
+                <td>
+                  <!-- <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+                  (click)="editProduct(product)"></button> -->
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                    (click)="deleteProduct(product)"></button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+              <div class="p-d-flex p-ai-center p-jc-between">
+                <span style="padding-left: 0px; width: 180px;" class="p-col-fixed"> Fertilizer Total:</span>
+                <span class="p-col-fixed" style="width: 92px;">N: {{nitrogenTotal}}</span>
+                <span class="p-col-fixed" style="width: 93px;">P: {{phosphorusTotal}}</span>
+                <span class="p-col-fixed" style="width: 94px;">K: {{potassiumTotal}}</span>
+                <span class="p-col-2">Ca: {{calciumTotal}}</span>
+                <span class="p-col"></span>
+              </div>
+            </ng-template>
+          </p-table>
+        </div>
+  
+        <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+          styleClass="p-fluid">
+          <ng-template pTemplate="content">
+            <div class="p-field">
+              <label for="name">Name</label>
+              <p-dropdown [options]="dropdownProds" [(ngModel)]="selectedDropdown" optionLabel="name" optionValue="id">
+              </p-dropdown>
+              <small class="p-invalid" *ngIf="submitted && !product.name">Name is required.</small>
+            </div>
+            <div class="p-field">
+              <label for="amount">Amount</label>
+              <p-inputNumber id="amount" [(ngModel)]="product.amount" mode="decimal" locale="en-US"
+                [minFractionDigits]="1" [maxFractionDigits]="2"></p-inputNumber>
+            </div>
+          </ng-template>
+  
+          <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+              (click)="hideDialog()"></button>
+            <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text"
+              (click)="saveProduct()"></button>
+          </ng-template>
+        </p-dialog>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,44 @@
+<table>
+    <thead>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Weight</th>
+      <th>Nitrogen</th>
+      <th>Phosphorus</th>
+      <th>Potassium</th>
+      <th>Calcium</th>
+      <th>Magnesium</th>
+      <th>Sulfate</th>
+      <th>Iron</th>
+      <th>Manganese</th>
+      <th>Copper</th>
+      <th>Zinc</th>
+      <th>Boron</th>
+      <th>Molybdenum</th>
+      <th>Carbon</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+  
+        <td>{{product.id}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.weight}}</td>
+        <td>{{product.nitrogen}}</td>
+        <td>{{product.phosphorus}}</td>
+        <td>{{product.potassium}}</td>
+        <td>{{product.calcium}}</td>
+        <td>{{product.magnesium}}</td>
+        <td>{{product.sulfate}}</td>
+        <td>{{product.iron}}</td>
+        <td>{{product.manganese}}</td>
+        <td>{{product.copper}}</td>
+        <td>{{product.zinc}}</td>
+        <td>{{product.boron}}</td>
+        <td>{{product.molybdenum}}</td>
+        <td>{{product.carbon}}</td>
+        <td>
+            <!-- <button (click)="delete(product.id)">Delete</button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
