@@ -44,7 +44,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { RatingModule } from 'primeng/rating';
 import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-
+import { MenubarModule } from 'primeng/menubar';
 
 @NgModule({
   declarations: [
@@ -87,7 +87,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     InputTextModule,
     FileUploadModule,
     RatingModule,
-    InputTextareaModule
+    InputTextareaModule,
+    MenubarModule
   ],
   providers: [ConfirmationService, PrimeNGConfig, FilterService, MessageService, ProductService],
   bootstrap: [AppComponent]

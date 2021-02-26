@@ -1,44 +1,195 @@
-<table>
-    <thead>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Weight</th>
-      <th>Nitrogen</th>
-      <th>Phosphorus</th>
-      <th>Potassium</th>
-      <th>Calcium</th>
-      <th>Magnesium</th>
-      <th>Sulfate</th>
-      <th>Iron</th>
-      <th>Manganese</th>
-      <th>Copper</th>
-      <th>Zinc</th>
-      <th>Boron</th>
-      <th>Molybdenum</th>
-      <th>Carbon</th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of products">
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-progressSpinner class="center-loading" *ngIf="isLoading"></p-progressSpinner>
+<div *ngIf="!isLoading" class="card">
+  <div>
+    <h3>Products</h3>
+    <button pButton type="button" label="Add Product" class="p-button-secondary align-right" (click)="addProduct()"></button>
+  </div>
   
-        <td>{{product.id}}</td>
-        <td>{{product.name}}</td>
-        <td>{{product.weight}}</td>
-        <td>{{product.nitrogen}}</td>
-        <td>{{product.phosphorus}}</td>
-        <td>{{product.potassium}}</td>
-        <td>{{product.calcium}}</td>
-        <td>{{product.magnesium}}</td>
-        <td>{{product.sulfate}}</td>
-        <td>{{product.iron}}</td>
-        <td>{{product.manganese}}</td>
-        <td>{{product.copper}}</td>
-        <td>{{product.zinc}}</td>
-        <td>{{product.boron}}</td>
-        <td>{{product.molybdenum}}</td>
-        <td>{{product.carbon}}</td>
+  <p-table [value]="products" dataKey="id" editMode="row" styleClass="p-datatable-sm">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>lbs / gal</th>
+        <th>N</th>
+        <th>P</th>
+        <th>K2O</th>
+        <th>Ca</th>
+        <th>Mg</th>
+        <th>SO4</th>
+        <th>Fe</th>
+        <th>Mn</th>
+        <th>Cu</th>
+        <th>Zn</th>
+        <th>B</th>
+        <th>Mo</th>
+        <th>Carbon</th>
+        <th style="width:8rem"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+      <tr [pEditableRow]="product">
         <td>
-            <!-- <button (click)="delete(product.id)">Delete</button> -->
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="product.name">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.name}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.weight" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.weight}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.nitrogen" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.nitrogen}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.phosphorus">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.phosphorus}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.potassium">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.potassium}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.calcium">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.calcium}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.magnesium">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.magnesium}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.sulfate">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.sulfate}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.iron">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.iron}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.manganese">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.manganese}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.copper">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.copper}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.zinc">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.zinc}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.boron">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.boron}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.molybdenum">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.molybdenum}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.carbon">
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.carbon}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td style="text-align:center">
+          <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+            (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
+          <button *ngIf="!editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+            (click)="onRowDelete(product.id)" class="p-button-rounded p-button-text p-button-danger"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+            (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success p-mr-2"></button>
+          <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+            (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
         </td>
       </tr>
-    </tbody>
-  </table>
+    </ng-template>
+  </p-table>
+</div>

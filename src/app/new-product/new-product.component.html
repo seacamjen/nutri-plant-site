@@ -1,71 +1,70 @@
+<form [formGroup]='productForm'>
+    <p-card>
+        <div class="p-fluid p-formgrid p-grid">
 
+            <div class="p-field p-col-12 p-md-3">
+                <label for="name">Name</label>
+                <input formControlName="name" id="name" type="text" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="weight">lbs / gal</label>
+                <input formControlName="weight" id="weight" type="number" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="nitrogen">Nitrogen</label>
+                <input formControlName="nitrogen" id="nitrogen" type="number" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="phosphorus">Phosphorus</label>
+                <input formControlName="phosphorus" id="phosphorus" type="number" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="potassium">Potassium</label>
+                <input formControlName="potassium" id="potassium" type="number" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="calcium">Calcium</label>
+                <input formControlName="calcium" id="calcium" type="number" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="magnesium">Magnesium</label>
+                <input formControlName="magnesium" id="magnesium" type="number" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="sulfate">Sulfate</label>
+                <input formControlName="sulfate" id="sulfate" type="number" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="iron">Iron</label>
+                <input formControlName="iron" id="iron" type="number" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="manganese">Manganese</label>
+                <input formControlName="manganese" id="manganese" type="number" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="copper">Copper</label>
+                <input formControlName="copper" id="copper" type="number" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="zinc">Zinc</label>
+                <input formControlName="zinc" id="zinc" type="number" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="boron">Boron</label>
+                <input formControlName="boron" id="boron" type="number" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="molybdenum">Molybdenum</label>
+                <input formControlName="molybdenum" id="molybdenum" type="number" pInputText required>
+            </div>
+            <div class="p-field p-col-12 p-md-3">
+                <label for="carbon">Carbon</label>
+                <input formControlName="carbon" id="carbon" type="number" pInputText required>
+            </div>
 
-
-<div class="p-field p-grid">
-    <form [formGroup]='productForm'>
-        <label for="name" class="p-col-fixed" style="width: 100px;">Name</label>
-        <div class="p-col">
-            <input formControlName="name" id="name" type="text" pInputText>
+            <button pButton pRipple [disabled]="!productForm.valid" label="Save" class="p-button-raised p-button-rounded" (click)="onSubmit()"></button>
+            
         </div>
-        <label for="weight" class="p-col-fixed" style="width: 100px;">Weight</label>
-        <div class="p-col">
-            <input formControlName="weight" id="weight" type="number" pInputText>
-        </div>
-        <label for="nitrogen" class="p-col-fixed" style="width: 100px;">Nitrogen</label>
-        <div class="p-col">
-            <input formControlName="nitrogen" id="nitrogen" type="number" pInputText>
-        </div>
-        <label for="phosphorus" class="p-col-fixed" style="width: 100px;">Phosphorus</label>
-        <div class="p-col">
-            <input formControlName="phosphorus" id="phosphorus" type="number" pInputText>
-        </div>
-        <label for="potassium" class="p-col-fixed" style="width: 100px;">Potassium</label>
-        <div class="p-col">
-            <input formControlName="potassium" id="potassium" type="number" pInputText>
-        </div>
-        <label for="calcium" class="p-col-fixed" style="width: 100px;">Calcium</label>
-        <div class="p-col">
-            <input formControlName="calcium" id="calcium" type="number" pInputText>
-        </div>
-        <label for="magnesium" class="p-col-fixed" style="width: 100px;">Magnesium</label>
-        <div class="p-col">
-            <input formControlName="magnesium" id="magnesium" type="number" pInputText>
-        </div>
-        <label for="sulfate" class="p-col-fixed" style="width: 100px;">Sulfate</label>
-        <div class="p-col">
-            <input formControlName="sulfate" id="sulfate" type="number" pInputText>
-        </div>
-        <label for="iron" class="p-col-fixed" style="width: 100px;">Iron</label>
-        <div class="p-col">
-            <input formControlName="iron" id="iron" type="number" pInputText>
-        </div>
-        <label for="manganese" class="p-col-fixed" style="width: 100px;">Manganese</label>
-        <div class="p-col">
-            <input formControlName="manganese" id="manganese" type="number" pInputText>
-        </div>
-        <label for="copper" class="p-col-fixed" style="width: 100px;">Copper</label>
-        <div class="p-col">
-            <input formControlName="copper" id="copper" type="number" pInputText>
-        </div>
-        <label for="zinc" class="p-col-fixed" style="width: 100px;">Zinc</label>
-        <div class="p-col">
-            <input formControlName="zinc" id="zinc" type="number" pInputText>
-        </div>
-        <label for="boron" class="p-col-fixed" style="width: 100px;">Boron</label>
-        <div class="p-col">
-            <input formControlName="boron" id="boron" type="number" pInputText>
-        </div>
-        <label for="molybdenum" class="p-col-fixed" style="width: 100px;">Molybdenum</label>
-        <div class="p-col">
-            <input formControlName="molybdenum" id="molybdenum" type="number" pInputText>
-        </div>
-        <label for="carbon" class="p-col-fixed" style="width: 100px;">Carbon</label>
-        <div class="p-col">
-            <input formControlName="carbon" id="carbon" type="number" pInputText>
-        </div>
-        
-        <button pButton pRipple label="Save" class="p-button-raised p-button-rounded"
-            (click)="onSubmit()"></button>
-
-    </form>
-</div>
+    </p-card>
+</form>

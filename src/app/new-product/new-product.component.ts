@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ProductService } from '../service/product.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-new-product',
@@ -9,32 +10,32 @@ import { ProductService } from '../service/product.service';
 })
 export class NewProductComponent implements OnInit {
 
-  productForm = new FormGroup ({
-    name: new FormControl (''),
-    weight: new FormControl(''),
-    nitrogen: new FormControl(''),
-    phosphorus: new FormControl(''),
-    potassium: new FormControl(''),
-    calcium: new FormControl(''),
-    magnesium: new FormControl(''),
-    sulfate: new FormControl(''),
-    iron: new FormControl(''),
-    manganese: new FormControl(''),
-    copper: new FormControl(''),
-    zinc: new FormControl(''),
-    boron: new FormControl(''),
-    molybdenum: new FormControl(''),
-    carbon: new FormControl(''),
+  productForm = this.fb.group ({
+    name: ['', Validators.required],
+    weight: ['', Validators.required],
+    nitrogen: ['', Validators.required],
+    phosphorus: ['', Validators.required],
+    potassium: ['', Validators.required],
+    calcium: ['', Validators.required],
+    magnesium: ['', Validators.required],
+    sulfate: ['', Validators.required],
+    iron: ['', Validators.required],
+    manganese: ['', Validators.required],
+    copper: ['', Validators.required],
+    zinc: ['', Validators.required],
+    boron: ['', Validators.required],
+    molybdenum: ['', Validators.required],
+    carbon: ['', Validators.required],
   });
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
     this.productService.createProduct(this.productForm.value);
-    console.log(this.productForm.value);
+    this.router.navigateByUrl('/products');
   }
 
 }

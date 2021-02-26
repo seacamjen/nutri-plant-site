@@ -1,0 +1,11 @@
+.align-right {
+    position: absolute;
+    top: 20%;
+    right: 5%;
+}
+
+.center-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}

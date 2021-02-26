@@ -1,10 +1,6 @@
-
-<nav>
-    <ul>
-        <li><a routerLink="/create-product">Create New Product</a></li>
-        <li><a routerLink="/products">All Products</a></li>
-        <li><a routerLink="/removal">Removal Calculation</a></li>
-    </ul>
-</nav>
+<p-menubar [model]="items">
+    <ng-template pTemplate="start">
+    </ng-template>
+</p-menubar>
 
 <router-outlet></router-outlet>

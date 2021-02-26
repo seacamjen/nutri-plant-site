@@ -4,11 +4,8 @@ import { ProductService } from '../service/product.service';
 import { Product } from '../models/product';
 import { PlantNutrientService } from "../service/plant-nutrient.service";
 import { IPlantNutrients } from "../models/plant-nutrients";
-
-interface ProductDropdown {
-  id: number,
-  name: string
-}
+import { map, catchError } from 'rxjs/operators';
+import { Dropdown } from "../models/dropdown";
 
 @Component({
   selector: 'app-nutrient-removal',
@@ -28,7 +25,7 @@ export class NutrientRemovalComponent implements OnInit {
   selectedPlants: IPlantNutrients[];
   submitted: boolean;
   submittedPlant: boolean;
-  dropdownProds: ProductDropdown[];
+  dropdownProds: any[];
   selectedDropdown: string;
   nitrogenTotal: number;
   phosphorusTotal: number;
@@ -44,28 +41,28 @@ export class NutrientRemovalComponent implements OnInit {
     private plantService: PlantNutrientService) 
     {
       this.dropdownProds = [
-        {id: 0, name: "Select a Product"},
-        {id: 1, name: "ATS"},
-        {id: 2, name: "Fusion"},
-        {id: 3, name: "1_8_20"},
-        {id: 4, name: "Calcium Connect"},
-        {id: 5, name: "Bioblend powder"},
-        {id: 6, name: "Huma Connect 1"},
-        {id: 7, name: "Huma Connect 2"},
-        {id: 8, name: "Borrechel comp"},
-        {id: 9, name: "KFUEL"},
-        {id: 10, name: "KTS"},
-        {id: 11, name: "UAN-32"},
-        {id: 12, name: "CAN-17"},
-        {id: 13, name: "Thiocal"},
-        {id: 14, name: "MOP"},
-        {id: 15, name: "SOP"},
-        {id: 16, name: "20_20_20 dry"},
-        {id: 17, name: "6_31_31"},
-        {id: 18, name: "0-0-30"},
-        {id: 19, name: "KNO3"},
-        {id: 20, name: "Ca(NO3)2"},
-        {id: 21, name: "20_20_20"}
+        // {id: 0, name: "Select a Product"},
+        // {id: 1, name: "ATS"},
+        // {id: 2, name: "Fusion"},
+        // {id: 3, name: "1_8_20"},
+        // {id: 4, name: "Calcium Connect"},
+        // {id: 5, name: "Bioblend powder"},
+        // {id: 6, name: "Huma Connect 1"},
+        // {id: 7, name: "Huma Connect 2"},
+        // {id: 8, name: "Borrechel comp"},
+        // {id: 9, name: "KFUEL"},
+        // {id: 10, name: "KTS"},
+        // {id: 11, name: "UAN-32"},
+        // {id: 12, name: "CAN-17"},
+        // {id: 13, name: "Thiocal"},
+        // {id: 14, name: "MOP"},
+        // {id: 15, name: "SOP"},
+        // {id: 16, name: "20_20_20 dry"},
+        // {id: 17, name: "6_31_31"},
+        // {id: 18, name: "0-0-30"},
+        // {id: 19, name: "KNO3"},
+        // {id: 20, name: "Ca(NO3)2"},
+        // {id: 21, name: "20_20_20"}
       ]
     }
 
@@ -73,7 +70,17 @@ export class NutrientRemovalComponent implements OnInit {
       this.visibleSidebar1 = true;
       this.isLoading = true;
       this.primengConfig.ripple = true;
-  
+
+      this.productService.getProducts().subscribe(data => {
+        this.isLoading = false;
+        this.dropdownProds = data.map(e => {
+          return {
+            id: e.payload.doc.id,
+            ...e.payload.doc.data() as Product
+          }
+        })
+      });
+
       this.resetValues();
     }
 
@@ -127,19 +134,24 @@ export class NutrientRemovalComponent implements OnInit {
 
   saveProduct() {
     this.submitted = true;
+    console.log("Save Product");
+    console.log(this.selectedDropdown);
+    console.log(this.product.weight);
 
     // TODO need to fix this
-    // this.productService.calculateProduct(this.selectedDropdown, this.product.amount)
-    //     .then(data => {
-    //       let a = data;
-    //       this.products.push(a);
-    //       this.nitrogenTotal = parseFloat((this.nitrogenTotal + a.nitrogen).toFixed(2));
-    //       this.phosphorusTotal = parseFloat((this.phosphorusTotal + a.phosphorus).toFixed(2));
-    //       this.potassiumTotal = parseFloat((this.potassiumTotal + a.potassium).toFixed(2));
-    //       this.calciumTotal = parseFloat((this.calciumTotal + a.calcium).toFixed(2));
-    //       this.productDialog = false;
-    //       this.product = {};
-    //     });
+    const productWeight = this.product.weight!;
+    this.productService.calculateProduct(this.selectedDropdown, productWeight)
+        .then(data => {
+          let a = data;
+          this.products.push(a);
+          // TODO fix calculations
+          // this.nitrogenTotal = parseFloat((this.nitrogenTotal + a.nitrogen).toFixed(2));
+          // this.phosphorusTotal = parseFloat((this.phosphorusTotal + a.phosphorus).toFixed(2));
+          // this.potassiumTotal = parseFloat((this.potassiumTotal + a.potassium).toFixed(2));
+          // this.calciumTotal = parseFloat((this.calciumTotal + a.calcium).toFixed(2));
+          this.productDialog = false;
+          this.product = {};
+        });
   }
 
   resetValues() {

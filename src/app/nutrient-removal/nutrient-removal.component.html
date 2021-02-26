@@ -47,7 +47,7 @@
     </div> -->
   
     <div class="p-grid" style="padding-left: 25px;">
-      <div class="p-col-5">
+      <div class="p-col-12">
         <p-toast></p-toast>
   
         <div class="card" style="border: solid indianred;">
@@ -68,8 +68,17 @@
                 <th>Amount</th>
                 <th>N</th>
                 <th>P</th>
-                <th>K</th>
+                <th>K2O</th>
                 <th>Ca</th>
+                <th>Mg</th>
+                <th>SO4</th>
+                <th>Fe</th>
+                <th>Mn</th>
+                <th>Cu</th>
+                <th>Zn</th>
+                <th>B</th>
+                <th>Mo</th>
+                <th>Carbon</th>
                 <th></th>
               </tr>
             </ng-template>
@@ -86,7 +95,7 @@
                 </td>
               </tr>
             </ng-template>
-            <ng-template pTemplate="summary">
+            <!-- <ng-template pTemplate="summary">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <span style="padding-left: 0px; width: 100px;" class="p-col-fixed"> Fertilizer Total:</span>
                 <span class="p-col-2">N: {{nitrogenTotal}}</span>
@@ -95,7 +104,7 @@
                 <span class="p-col-2">Ca: {{calciumTotal}}</span>
                 <span class="p-col"></span>
               </div>
-            </ng-template>
+            </ng-template> -->
           </p-table>
         </div>
   
@@ -109,7 +118,7 @@
             </div>
             <div class="p-field">
               <label for="amount">Amount</label>
-              <textarea id="amount" pInputTextarea [(ngModel)]="product.amount" required rows="3" cols="20"></textarea>
+              <textarea id="amount" pInputTextarea [(ngModel)]="product.weight" required rows="3" cols="20"></textarea>
             </div>
           </ng-template>
   
@@ -139,8 +148,7 @@
           </ng-template>
         </p-dialog>
       </div>
-      <div class="p-col-1"></div>
-      <div class="p-col-5">
+      <div class="p-col-12">
         <p-toast></p-toast>
   
         <div class="card" style="border: solid indianred;">
@@ -162,8 +170,17 @@
                 <th>Amount</th>
                 <th>N</th>
                 <th>P</th>
-                <th>K</th>
+                <th>K2O</th>
                 <th>Ca</th>
+                <th>Mg</th>
+                <th>SO4</th>
+                <th>Fe</th>
+                <th>Mn</th>
+                <th>Cu</th>
+                <th>Zn</th>
+                <th>B</th>
+                <th>Mo</th>
+                <th>Carbon</th>
                 <th></th>
               </tr>
             </ng-template>
@@ -175,6 +192,15 @@
                 <td>{{product.phosphorus}}</td>
                 <td>{{product.potassium}}</td>
                 <td>{{product.calcium}}</td>
+                <td>{{product.magnesium}}</td>
+                <td>{{product.sulfate}}</td>
+                <td>{{product.iron}}</td>
+                <td>{{product.manganese}}</td>
+                <td>{{product.copper}}</td>
+                <td>{{product.zinc}}</td>
+                <td>{{product.boron}}</td>
+                <td>{{product.molybdenum}}</td>
+                <td>{{product.carbon}}</td>
                 <td>
                   <!-- <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
                   (click)="editProduct(product)"></button> -->
@@ -183,7 +209,7 @@
                 </td>
               </tr>
             </ng-template>
-            <ng-template pTemplate="summary">
+            <!-- <ng-template pTemplate="summary">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <span style="padding-left: 0px; width: 180px;" class="p-col-fixed"> Fertilizer Total:</span>
                 <span class="p-col-fixed" style="width: 92px;">N: {{nitrogenTotal}}</span>
@@ -192,7 +218,7 @@
                 <span class="p-col-2">Ca: {{calciumTotal}}</span>
                 <span class="p-col"></span>
               </div>
-            </ng-template>
+            </ng-template> -->
           </p-table>
         </div>
   
@@ -207,7 +233,7 @@
             </div>
             <div class="p-field">
               <label for="amount">Amount</label>
-              <p-inputNumber id="amount" [(ngModel)]="product.amount" mode="decimal" locale="en-US"
+              <p-inputNumber id="amount" [(ngModel)]="product.weight" mode="decimal" locale="en-US"
                 [minFractionDigits]="1" [maxFractionDigits]="2"></p-inputNumber>
             </div>
           </ng-template>
