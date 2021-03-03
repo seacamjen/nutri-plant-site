@@ -51,8 +51,9 @@
         <p-toast></p-toast>
   
         <div class="card" style="border: solid indianred;">
+          <button pButton pRipple label="PDF" (click)="openNutrientPDF()"></button>
           <p-table #dt [value]="plants" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="375px"
-            [rowHover]="true" dataKey="id">
+            [rowHover]="true" dataKey="id" id="nutrientData">
             <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <h2 class="p-m-0">{{selectedPlantName}} Nutrient Removal</h2>
@@ -89,6 +90,15 @@
                 <td>{{plant.phosphorus}}</td>
                 <td>{{plant.potassium}}</td>
                 <td>{{plant.calcium}}</td>
+                <td>{{plant.magnesium}}</td>
+                <td>{{plant.sulfate}}</td>
+                <td>{{plant.iron}}</td>
+                <td>{{plant.manganese}}</td>
+                <td>{{plant.copper}}</td>
+                <td>{{plant.zinc}}</td>
+                <td>{{plant.boron}}</td>
+                <td>{{plant.molybdenum}}</td>
+                <td>{{plant.carbon}}</td>
                 <td>
                   <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
                     (click)="deletePlant(plant)"></button>
@@ -98,10 +108,19 @@
             <!-- <ng-template pTemplate="summary">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <span style="padding-left: 0px; width: 100px;" class="p-col-fixed"> Fertilizer Total:</span>
-                <span class="p-col-2">N: {{nitrogenTotal}}</span>
-                <span class="p-col-2">P: {{phosphorusTotal}}</span>
-                <span class="p-col-2">K: {{potassiumTotal}}</span>
-                <span class="p-col-2">Ca: {{calciumTotal}}</span>
+                <span class="p-col">N: {{nitrogenTotal}}</span>
+                <span class="p-col">P: {{phosphorusTotal}}</span>
+                <span class="p-col">K: {{potassiumTotal}}</span>
+                <span class="p-col">Ca: {{calciumTotal}}</span>
+                <span class="p-col">Mg: {{magnesiumTotal}}</span>
+                <span class="p-col">SO4: {{sulfateTotal}}</span>
+                <span class="p-col">Fe: {{ironTotal}}</span>
+                <span class="p-col">Mn: {{manganeseTotal}}</span>
+                <span class="p-col">Cu: {{copperTotal}}</span>
+                <span class="p-col">Zn: {{zincTotal}}</span>
+                <span class="p-col">B: {{boronTotal}}</span>
+                <span class="p-col">Mo: {{molybdenumTotal}}</span>
+                <span class="p-col">Carbon: {{carbonTotal}}</span>
                 <span class="p-col"></span>
               </div>
             </ng-template> -->
@@ -152,9 +171,10 @@
         <p-toast></p-toast>
   
         <div class="card" style="border: solid indianred;">
+          <button pButton pRipple label="PDF" (click)="openFertPDF()"></button>
           <p-table #dt [value]="products" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="575px"
             [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
-            [rowHover]="true" dataKey="id">
+            [rowHover]="true" dataKey="id" id="fertilizerData">
             <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
                 <h2 class="p-m-0">Manage Fertilizers</h2>

@@ -9,8 +9,11 @@ import { AppComponent } from './app.component';
 import { ProductService } from './service/product.service';
 
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { environment } from '../environments/environment';
+import { AngularFireStorageModule } from "@angular/fire/storage";
 
 import { ProductListComponent } from './product-list/product-list.component';
 import { NewProductComponent } from './new-product/new-product.component';
@@ -45,20 +48,34 @@ import { RatingModule } from 'primeng/rating';
 import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenubarModule } from 'primeng/menubar';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { AuthService } from "./service/auth.service";
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
     NewProductComponent,
-    NutrientRemovalComponent
+    NutrientRemovalComponent,
+    LoginComponent,
+    DashboardComponent,
+    SignUpComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule.enablePersistence(),
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
     InputNumberModule,
     ButtonModule,
     FormsModule,
@@ -90,7 +107,7 @@ import { MenubarModule } from 'primeng/menubar';
     InputTextareaModule,
     MenubarModule
   ],
-  providers: [ConfirmationService, PrimeNGConfig, FilterService, MessageService, ProductService],
+  providers: [ConfirmationService, PrimeNGConfig, FilterService, MessageService, ProductService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

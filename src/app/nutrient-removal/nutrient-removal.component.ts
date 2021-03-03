@@ -6,6 +6,8 @@ import { PlantNutrientService } from "../service/plant-nutrient.service";
 import { IPlantNutrients } from "../models/plant-nutrients";
 import { map, catchError } from 'rxjs/operators';
 import { Dropdown } from "../models/dropdown";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-nutrient-removal',
@@ -31,6 +33,15 @@ export class NutrientRemovalComponent implements OnInit {
   phosphorusTotal: number;
   potassiumTotal: number;
   calciumTotal: number;
+  magnesiumTotal: number;
+  sulfateTotal: number;
+  ironTotal: number;
+  manganeseTotal: number;
+  copperTotal: number;
+  zincTotal: number;
+  boronTotal: number;
+  molybdenumTotal: number;
+  carbonTotal: number;
   selectedPlantName: string;
   selectedPlantID: number;
 
@@ -40,37 +51,18 @@ export class NutrientRemovalComponent implements OnInit {
     private productService: ProductService,
     private plantService: PlantNutrientService) 
     {
-      this.dropdownProds = [
-        // {id: 0, name: "Select a Product"},
-        // {id: 1, name: "ATS"},
-        // {id: 2, name: "Fusion"},
-        // {id: 3, name: "1_8_20"},
-        // {id: 4, name: "Calcium Connect"},
-        // {id: 5, name: "Bioblend powder"},
-        // {id: 6, name: "Huma Connect 1"},
-        // {id: 7, name: "Huma Connect 2"},
-        // {id: 8, name: "Borrechel comp"},
-        // {id: 9, name: "KFUEL"},
-        // {id: 10, name: "KTS"},
-        // {id: 11, name: "UAN-32"},
-        // {id: 12, name: "CAN-17"},
-        // {id: 13, name: "Thiocal"},
-        // {id: 14, name: "MOP"},
-        // {id: 15, name: "SOP"},
-        // {id: 16, name: "20_20_20 dry"},
-        // {id: 17, name: "6_31_31"},
-        // {id: 18, name: "0-0-30"},
-        // {id: 19, name: "KNO3"},
-        // {id: 20, name: "Ca(NO3)2"},
-        // {id: 21, name: "20_20_20"}
-      ]
+      
     }
 
     ngOnInit() {
       this.visibleSidebar1 = true;
       this.isLoading = true;
       this.primengConfig.ripple = true;
+      this.getDropdown();
+      this.resetValues();
+    }
 
+    getDropdown() {
       this.productService.getProducts().subscribe(data => {
         this.isLoading = false;
         this.dropdownProds = data.map(e => {
@@ -80,8 +72,6 @@ export class NutrientRemovalComponent implements OnInit {
           }
         })
       });
-
-      this.resetValues();
     }
 
     openNew() {
@@ -134,9 +124,11 @@ export class NutrientRemovalComponent implements OnInit {
 
   saveProduct() {
     this.submitted = true;
-    console.log("Save Product");
-    console.log(this.selectedDropdown);
-    console.log(this.product.weight);
+    if (this.selectedDropdown == null || this.product.weight == null) {
+      this.hideDialog();
+      this.messageService.add({severity:'warn', summary: "Error", detail: 'Please Select a Product and Amount', life: 2000})
+      return;
+    }
 
     // TODO need to fix this
     const productWeight = this.product.weight!;
@@ -144,11 +136,19 @@ export class NutrientRemovalComponent implements OnInit {
         .then(data => {
           let a = data;
           this.products.push(a);
-          // TODO fix calculations
-          // this.nitrogenTotal = parseFloat((this.nitrogenTotal + a.nitrogen).toFixed(2));
-          // this.phosphorusTotal = parseFloat((this.phosphorusTotal + a.phosphorus).toFixed(2));
-          // this.potassiumTotal = parseFloat((this.potassiumTotal + a.potassium).toFixed(2));
-          // this.calciumTotal = parseFloat((this.calciumTotal + a.calcium).toFixed(2));
+          // this.nitrogenTotal = parseFloat((this.nitrogenTotal + a.nitrogen!).toFixed(2));
+          // this.phosphorusTotal = parseFloat((this.phosphorusTotal + a.phosphorus!).toFixed(2));
+          // this.potassiumTotal = parseFloat((this.potassiumTotal + a.potassium!).toFixed(2));
+          // this.calciumTotal = parseFloat((this.calciumTotal + a.calcium!).toFixed(2));
+          // this.magnesiumTotal = parseFloat((this.magnesiumTotal + a.magnesium!).toFixed(2));
+          // this.sulfateTotal = parseFloat((this.sulfateTotal + a.sulfate!).toFixed(2));
+          // this.ironTotal = parseFloat((this.ironTotal + a.iron!).toFixed(2));
+          // this.manganeseTotal = parseFloat((this.manganeseTotal + a.manganese!).toFixed(2));
+          // this.copperTotal = parseFloat((this.copperTotal + a.copper!).toFixed(2));
+          // this.zincTotal = parseFloat((this.zincTotal + a.zinc!).toFixed(2));
+          // this.boronTotal = parseFloat((this.boronTotal + a.boron!).toFixed(2));
+          // this.molybdenumTotal = parseFloat((this.molybdenumTotal + a.molybdenum!).toFixed(2));
+          // this.carbonTotal = parseFloat((this.carbonTotal + a.carbon!).toFixed(2));
           this.productDialog = false;
           this.product = {};
         });
@@ -178,36 +178,74 @@ export class NutrientRemovalComponent implements OnInit {
         this.selectedPlantName = "Melon";
         break;
       case 3: 
-        this.selectedPlantName = "Strawberries";
+        this.selectedPlantName = "Strawberry";
         break;
       case 4:
         this.selectedPlantName = "Grapes";
         break;
       case 5:
-        this.selectedPlantName = "Almonds";
+        this.selectedPlantName = "Almond";
         break;
       case 6:
-        this.selectedPlantName = "Avocados";
+        this.selectedPlantName = "Avocado";
         break;
       case 7:
-        this.selectedPlantName = "Walnuts";
+        this.selectedPlantName = "Walnut";
         break;
       case 8:
-        this.selectedPlantName = "Peas";
+        this.selectedPlantName = "Pea";
         break;
     }
   }
 
   savePlant() {
+    console.log("this is working")
     //hack to say that tons will be populated
     let amount: number = this.plant.tons!;
-    this.plantService.calculatePlantNutrient(this.selectedPlantID, amount)
+    this.plantService.calculatePlantNutrient(this.selectedPlantName, amount)
         .then(data =>{
           let a = data;
           this.plants.push(a);
-          // this.plants.sort((a, b) => (a.tons > b.tons) ? 1 : -1);
+          this.plants.sort((a, b) => (a.tons! > b.tons!) ? 1 : -1);
           this.plantDialog = false;
           this.plant = {tons: 0, nitrogen: 0, phosphorus: 0, potassium: 0, calcium: 0};
         })
   }
+
+  public openNutrientPDF():void {
+    let DATA = document.getElementById('NutrientData');
+      
+    html2canvas(DATA!).then(canvas => {
+        
+        let fileWidth = 208;
+        let fileHeight = canvas.height * fileWidth / canvas.width;
+        
+        const FILEURI = canvas.toDataURL('image/png')
+        let PDF = new jsPDF('p', 'mm', 'a4');
+        let position = 0;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
+        this.productService.uploadPDF(PDF);
+        PDF.save('nutrients.pdf');
+    });     
+  }
+
+  public openFertPDF():void {
+    let DATA = document.getElementById('fertilizerData');
+      
+    html2canvas(DATA!).then(canvas => {
+        
+        let fileWidth = 208;
+        let fileHeight = canvas.height * fileWidth / canvas.width;
+        
+        const FILEURI = canvas.toDataURL('image/png')
+        let PDF = new jsPDF('p', 'mm', 'a4');
+        let position = 0;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
+        
+        PDF.save('fertilizer.pdf');
+        // TODO send pdf to storage https://jsmobiledev.com/article/cloud-function-image-base64
+        // this.productService.uploadPDF(PDF);
+    });     
+  }
+  
 }

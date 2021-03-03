@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/storage";
+import jsPDF from 'jspdf';
 import { Product, ProductCalc } from '../models/product';
 
 @Injectable({
@@ -7,8 +9,10 @@ import { Product, ProductCalc } from '../models/product';
 })
 export class ProductService {
   unit: ProductCalc;
+  ref: AngularFireStorageReference;
+  task: AngularFireUploadTask;
 
-  constructor(private firestore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore, private fireStorage: AngularFireStorage) { }
 
   getProducts() {
     return this.firestore.collection('products').snapshotChanges();
@@ -49,6 +53,16 @@ export class ProductService {
 
   deleteProduct(productId: string) {
     this.firestore.doc('products/' + productId).delete();
+  }
+
+  uploadPDF(file: jsPDF) {
+    const id = Date.now().toString();
+    this.ref = this.fireStorage.ref(id);
+    var metadata = {
+      contentType: 'application/pdf'
+    }
+    console.log(file);
+    // this.task = this.ref.put(file, metadata);
   }
 
   generateUniqueID () {
