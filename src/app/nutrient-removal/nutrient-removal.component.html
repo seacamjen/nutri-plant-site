@@ -49,14 +49,13 @@
     <div class="p-grid" style="padding-left: 25px;">
       <div class="p-col-12">
         <p-toast></p-toast>
-  
+        <button pButton pRipple label="PDF" (click)="openNutrientPDF()"></button>
         <div class="card" style="border: solid indianred;">
-          <button pButton pRipple label="PDF" (click)="openNutrientPDF()"></button>
           <p-table #dt [value]="plants" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="375px"
             [rowHover]="true" dataKey="id" id="nutrientData">
             <ng-template pTemplate="caption">
               <div class="p-d-flex p-ai-center p-jc-between">
-                <h2 class="p-m-0">{{selectedPlantName}} Nutrient Removal</h2>
+                <h2 class="p-m-0">{{selectedPlantName}} Nutrient Removal per {{selectedPlantUnits}}</h2>
   
                 <span class="p-input-icon-left">
                   <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
@@ -105,9 +104,9 @@
                 </td>
               </tr>
             </ng-template>
-            <!-- <ng-template pTemplate="summary">
+            <ng-template pTemplate="summary">
               <div class="p-d-flex p-ai-center p-jc-between">
-                <span style="padding-left: 0px; width: 100px;" class="p-col-fixed"> Fertilizer Total:</span>
+                <span style="padding-left: 0px; width: 75px;" class="p-col-fixed"> Fertilizer Total:</span>
                 <span class="p-col">N: {{nitrogenTotal}}</span>
                 <span class="p-col">P: {{phosphorusTotal}}</span>
                 <span class="p-col">K: {{potassiumTotal}}</span>
@@ -120,10 +119,10 @@
                 <span class="p-col">Zn: {{zincTotal}}</span>
                 <span class="p-col">B: {{boronTotal}}</span>
                 <span class="p-col">Mo: {{molybdenumTotal}}</span>
-                <span class="p-col">Carbon: {{carbonTotal}}</span>
+                <span class="p-col">C: {{carbonTotal}}</span>
                 <span class="p-col"></span>
               </div>
-            </ng-template> -->
+            </ng-template>
           </p-table>
         </div>
   
@@ -169,9 +168,8 @@
       </div>
       <div class="p-col-12">
         <p-toast></p-toast>
-  
-        <div class="card" style="border: solid indianred;">
           <button pButton pRipple label="PDF" (click)="openFertPDF()"></button>
+        <div class="card" style="border: solid indianred;">
           <p-table #dt [value]="products" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="575px"
             [globalFilterFields]="['name','country.name','representative.name','status']" [(selection)]="selectedProducts"
             [rowHover]="true" dataKey="id" id="fertilizerData">
@@ -229,16 +227,25 @@
                 </td>
               </tr>
             </ng-template>
-            <!-- <ng-template pTemplate="summary">
+            <ng-template pTemplate="summary">
               <div class="p-d-flex p-ai-center p-jc-between">
-                <span style="padding-left: 0px; width: 180px;" class="p-col-fixed"> Fertilizer Total:</span>
-                <span class="p-col-fixed" style="width: 92px;">N: {{nitrogenTotal}}</span>
-                <span class="p-col-fixed" style="width: 93px;">P: {{phosphorusTotal}}</span>
-                <span class="p-col-fixed" style="width: 94px;">K: {{potassiumTotal}}</span>
-                <span class="p-col-2">Ca: {{calciumTotal}}</span>
+                <span style="padding-left: 0px; width: 150px;" class="p-col-fixed"> Fertilizer Total:</span>
+                <span class="p-col">N: {{nitrogenTotal}}</span>
+                <span class="p-col">P: {{phosphorusTotal}}</span>
+                <span class="p-col">K: {{potassiumTotal}}</span>
+                <span class="p-col">Ca: {{calciumTotal}}</span>
+                <span class="p-col">Mg: {{magnesiumTotal}}</span>
+                <span class="p-col">SO4: {{sulfateTotal}}</span>
+                <span class="p-col">Fe: {{ironTotal}}</span>
+                <span class="p-col">Mn: {{manganeseTotal}}</span>
+                <span class="p-col">Cu: {{copperTotal}}</span>
+                <span class="p-col">Zn: {{zincTotal}}</span>
+                <span class="p-col">B: {{boronTotal}}</span>
+                <span class="p-col">Mo: {{molybdenumTotal}}</span>
+                <span class="p-col">C: {{carbonTotal}}</span>
                 <span class="p-col"></span>
               </div>
-            </ng-template> -->
+            </ng-template>
           </p-table>
         </div>
   

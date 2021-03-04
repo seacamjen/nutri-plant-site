@@ -70,7 +70,7 @@ export class ProductService {
   }
 
   calculateProduct(productID: string, amount: number){
-    return new Promise<Product>(resolve => {
+    return new Promise<ProductCalc>(resolve => {
     
       this.unit = {
         id: productID,
@@ -93,9 +93,11 @@ export class ProductService {
         this.unit.boron = parseFloat((a.get('boron') * a.get('weight') * amount).toFixed(2));
         this.unit.molybdenum = parseFloat((a.get('molybdenum') * a.get('weight') * amount).toFixed(2));
         this.unit.carbon = parseFloat((a.get('carbon') * a.get('weight') * amount).toFixed(2));
+
+        resolve(this.unit);
       });
 
-      resolve(this.unit);
+      // resolve(this.unit);
     })
   }
 

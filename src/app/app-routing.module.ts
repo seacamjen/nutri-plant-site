@@ -17,9 +17,9 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'email-verification', component: VerifyEmailComponent },
-  { path: 'create-product', component: NewProductComponent },
-  { path: 'products', component: ProductListComponent },
-  { path: 'removal', component: NutrientRemovalComponent }
+  { path: 'create-product', component: NewProductComponent, canActivate: [AuthGuard] },
+  { path: 'products', component: ProductListComponent, canActivate: [AuthGuard] },
+  { path: 'removal', component: NutrientRemovalComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

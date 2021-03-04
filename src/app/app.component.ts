@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { MenuItem } from 'primeng/api';
+import { AuthService } from "./service/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { MenuItem } from 'primeng/api';
 export class AppComponent implements OnInit {
   items: MenuItem[];
 
-  constructor(private primengConfig: PrimeNGConfig) {}
+  constructor(private primengConfig: PrimeNGConfig, public authService: AuthService) {}
 
   ngOnInit() {
     this.primengConfig.ripple = true;
@@ -19,32 +20,6 @@ export class AppComponent implements OnInit {
           label:'Nutrient Removal',
           icon:'pi pi-fw pi-table',
           routerLink: '/removal'
-          // items:[
-          //     {
-          //       label:'Tomato'
-          //     },
-          //     {
-          //       label:'Melon'
-          //     }, 
-          //     {
-          //       label:'Strawberry'
-          //     },
-          //     {
-          //       label:'Grape'
-          //     },
-          //     {
-          //       label:'Almond'
-          //     },
-          //     {
-          //       label:'Avocado'
-          //     },
-          //     {
-          //       label:'Walnut'
-          //     },
-          //     {
-          //       label:'Pea'
-          //     }
-          // ]
       },
       {
           label:'Products',

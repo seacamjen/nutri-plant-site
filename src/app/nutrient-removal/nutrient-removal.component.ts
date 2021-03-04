@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, ConfirmationService, MessageService } from 'primeng/api';
 import { ProductService } from '../service/product.service';
-import { Product } from '../models/product';
+import { Product, ProductCalc } from '../models/product';
 import { PlantNutrientService } from "../service/plant-nutrient.service";
 import { IPlantNutrients } from "../models/plant-nutrients";
-import { map, catchError } from 'rxjs/operators';
-import { Dropdown } from "../models/dropdown";
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -44,6 +42,8 @@ export class NutrientRemovalComponent implements OnInit {
   carbonTotal: number;
   selectedPlantName: string;
   selectedPlantID: number;
+  selectedPlantUnits: string;
+  calcObject: ProductCalc;
 
   constructor(private primengConfig: PrimeNGConfig, 
     private messageService: MessageService, 
@@ -136,19 +136,20 @@ export class NutrientRemovalComponent implements OnInit {
         .then(data => {
           let a = data;
           this.products.push(a);
-          // this.nitrogenTotal = parseFloat((this.nitrogenTotal + a.nitrogen!).toFixed(2));
-          // this.phosphorusTotal = parseFloat((this.phosphorusTotal + a.phosphorus!).toFixed(2));
-          // this.potassiumTotal = parseFloat((this.potassiumTotal + a.potassium!).toFixed(2));
-          // this.calciumTotal = parseFloat((this.calciumTotal + a.calcium!).toFixed(2));
-          // this.magnesiumTotal = parseFloat((this.magnesiumTotal + a.magnesium!).toFixed(2));
-          // this.sulfateTotal = parseFloat((this.sulfateTotal + a.sulfate!).toFixed(2));
-          // this.ironTotal = parseFloat((this.ironTotal + a.iron!).toFixed(2));
-          // this.manganeseTotal = parseFloat((this.manganeseTotal + a.manganese!).toFixed(2));
-          // this.copperTotal = parseFloat((this.copperTotal + a.copper!).toFixed(2));
-          // this.zincTotal = parseFloat((this.zincTotal + a.zinc!).toFixed(2));
-          // this.boronTotal = parseFloat((this.boronTotal + a.boron!).toFixed(2));
-          // this.molybdenumTotal = parseFloat((this.molybdenumTotal + a.molybdenum!).toFixed(2));
-          // this.carbonTotal = parseFloat((this.carbonTotal + a.carbon!).toFixed(2));
+          this.nitrogenTotal = parseFloat((this.nitrogenTotal + a.nitrogen!).toFixed(2));
+          this.phosphorusTotal = parseFloat((this.phosphorusTotal + a.phosphorus!).toFixed(2));
+          this.potassiumTotal = parseFloat((this.potassiumTotal + a.potassium!).toFixed(2));
+          this.calciumTotal = parseFloat((this.calciumTotal + a.calcium!).toFixed(2));
+          this.magnesiumTotal = parseFloat((this.magnesiumTotal + a.magnesium!).toFixed(2));
+          this.sulfateTotal = parseFloat((this.sulfateTotal + a.sulfate!).toFixed(2));
+          this.ironTotal = parseFloat((this.ironTotal + a.iron!).toFixed(2));
+          this.manganeseTotal = parseFloat((this.manganeseTotal + a.manganese!).toFixed(2));
+          this.copperTotal = parseFloat((this.copperTotal + a.copper!).toFixed(2));
+          this.zincTotal = parseFloat((this.zincTotal + a.zinc!).toFixed(2));
+          this.boronTotal = parseFloat((this.boronTotal + a.boron!).toFixed(2));
+          this.molybdenumTotal = parseFloat((this.molybdenumTotal + a.molybdenum!).toFixed(2));
+          this.carbonTotal = parseFloat((this.carbonTotal + a.carbon!).toFixed(2));
+          
           this.productDialog = false;
           this.product = {};
         });
@@ -161,6 +162,15 @@ export class NutrientRemovalComponent implements OnInit {
     this.phosphorusTotal = 0;
     this.potassiumTotal = 0;
     this.calciumTotal = 0;
+    this.magnesiumTotal = 0;
+    this.sulfateTotal = 0;
+    this.ironTotal = 0;
+    this.manganeseTotal = 0;
+    this.copperTotal = 0;
+    this.zincTotal = 0;
+    this.boronTotal = 0;
+    this.molybdenumTotal = 0;
+    this.carbonTotal = 0;
   }
 
   selectPlant(plantID: number) {
@@ -170,21 +180,23 @@ export class NutrientRemovalComponent implements OnInit {
     switch(plantID) {
       case 1 :
         this.selectedPlantName = "Tomato";
-        // this.productService.getNutrientRemovals("Tomato").then(data => {
-        //   this.products = data;
-        // })
+        this.selectedPlantUnits = "lbs / acre / ton"
         break;
       case 2: 
         this.selectedPlantName = "Melon";
+        this.selectedPlantUnits = "lbs / acre / ton"
         break;
       case 3: 
         this.selectedPlantName = "Strawberry";
+        this.selectedPlantUnits = "lbs / acre / ton"
         break;
       case 4:
         this.selectedPlantName = "Grapes";
+        this.selectedPlantUnits = "lbs / acre / ton"
         break;
       case 5:
         this.selectedPlantName = "Almond";
+        this.selectedPlantUnits = "1000 lbs / acre"
         break;
       case 6:
         this.selectedPlantName = "Avocado";
@@ -208,7 +220,7 @@ export class NutrientRemovalComponent implements OnInit {
           this.plants.push(a);
           this.plants.sort((a, b) => (a.tons! > b.tons!) ? 1 : -1);
           this.plantDialog = false;
-          this.plant = {tons: 0, nitrogen: 0, phosphorus: 0, potassium: 0, calcium: 0};
+          this.plant = {};
         })
   }
 

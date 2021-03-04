@@ -1,6 +1,18 @@
 <p-menubar [model]="items">
     <ng-template pTemplate="start">
     </ng-template>
+    <ng-template pTemplate="end">
+        <div *ngIf="authService.isLoggedIn">
+            logged in
+        </div>
+        <div *ngIf="!authService.isLoggedIn">
+            not logged in
+        </div>
+        <a class="btn btn-block btn-primary" (click)="authService.signOut()">
+            Sign Out
+        </a>
+        <img src="./assets/images/Agconnect_Logo.jpg" style="max-height: 50px;" alt="Agconnect Logo">
+    </ng-template>
 </p-menubar>
 
 <router-outlet></router-outlet>
