@@ -27,10 +27,8 @@ export class AuthService {
                   if (user) {
                     this.userState = user;
                     localStorage.setItem('user', JSON.stringify(this.userState));
-                    JSON.parse(localStorage.getItem('user')!);
                   } else {
-                    localStorage.setItem('user', '');
-                    JSON.parse(localStorage.getItem('user')!);
+                    // localStorage.setItem('user', '');
                   }
                 })
               }
@@ -38,20 +36,24 @@ export class AuthService {
   signIn(email: string, password: string) {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['removal']);
-        });
         this.setUserData(result.user!);
+        // this.ngZone.run(() => {
+        //   console.log('Route to products')
+        //   this.router.navigate(['removal']);
+        // });
       }).catch((error) => {
         window.alert(error.message)
       })
   }
 
   get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user')!);
-    console.log("IsloggedIN "+user);
-    // return true;
-    return (user !== null && user.emailVerified !== false) ? true : false;
+    if (localStorage.getItem('user') !== null) {
+      const user = JSON.parse(localStorage.getItem('user')!);
+      return (user !== null && user.emailVerified !== false) ? true : false;
+    } else {
+      return false;
+    }
+    
   }
 
   signUp(email: string, password: string) {
@@ -104,7 +106,7 @@ export class AuthService {
     try {
       const result = await this.afAuth.signInWithPopup(provider);
       this.ngZone.run(() => {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['products']);
       });
       this.setUserData((result.user!));
     } catch (error) {

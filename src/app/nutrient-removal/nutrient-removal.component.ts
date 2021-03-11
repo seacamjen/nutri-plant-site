@@ -4,8 +4,9 @@ import { ProductService } from '../service/product.service';
 import { Product, ProductCalc } from '../models/product';
 import { PlantNutrientService } from "../service/plant-nutrient.service";
 import { IPlantNutrients } from "../models/plant-nutrients";
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+// import jsPDF from 'jspdf';
+// import autoTable from 'jspdf-autotable';
+// import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-nutrient-removal',
@@ -49,10 +50,7 @@ export class NutrientRemovalComponent implements OnInit {
     private messageService: MessageService, 
     private confirmationService: ConfirmationService,
     private productService: ProductService,
-    private plantService: PlantNutrientService) 
-    {
-      
-    }
+    private plantService: PlantNutrientService) {}
 
     ngOnInit() {
       this.visibleSidebar1 = true;
@@ -71,6 +69,7 @@ export class NutrientRemovalComponent implements OnInit {
             ...e.payload.doc.data() as Product
           }
         })
+        this.dropdownProds.unshift({name: 'Select'})
       });
     }
 
@@ -81,7 +80,7 @@ export class NutrientRemovalComponent implements OnInit {
     }
   
     openNewPlant() {
-      this.plant = {tons: 0, nitrogen: 0, phosphorus: 0, potassium: 0, calcium: 0};
+      this.plant = {};
       this.submittedPlant = false;
       this.plantDialog = true;
     }
@@ -130,7 +129,6 @@ export class NutrientRemovalComponent implements OnInit {
       return;
     }
 
-    // TODO need to fix this
     const productWeight = this.product.weight!;
     this.productService.calculateProduct(this.selectedDropdown, productWeight)
         .then(data => {
@@ -152,6 +150,7 @@ export class NutrientRemovalComponent implements OnInit {
           
           this.productDialog = false;
           this.product = {};
+          this.selectedDropdown = '';
         });
   }
 
@@ -180,39 +179,74 @@ export class NutrientRemovalComponent implements OnInit {
     switch(plantID) {
       case 1 :
         this.selectedPlantName = "Tomato";
-        this.selectedPlantUnits = "lbs / acre / ton"
+        this.selectedPlantUnits = "tons / acre";
+        this.getPrepop(this.selectedPlantName);
         break;
       case 2: 
         this.selectedPlantName = "Melon";
-        this.selectedPlantUnits = "lbs / acre / ton"
+        this.selectedPlantUnits = "tons / acre";
+        this.getPrepop(this.selectedPlantName);
         break;
       case 3: 
         this.selectedPlantName = "Strawberry";
-        this.selectedPlantUnits = "lbs / acre / ton"
+        this.selectedPlantUnits = "tons / acre";
+        this.getPrepop(this.selectedPlantName);
         break;
       case 4:
         this.selectedPlantName = "Grapes";
-        this.selectedPlantUnits = "lbs / acre / ton"
+        this.selectedPlantUnits = "tons / acre";
+        this.getPrepop(this.selectedPlantName);
         break;
       case 5:
         this.selectedPlantName = "Almond";
-        this.selectedPlantUnits = "1000 lbs / acre"
+        this.selectedPlantUnits = "lbs / acre";
+        this.getPrepop(this.selectedPlantName);
         break;
       case 6:
         this.selectedPlantName = "Avocado";
+        this.selectedPlantUnits = "lbs / acre";
+        this.getPrepop(this.selectedPlantName);
         break;
       case 7:
         this.selectedPlantName = "Walnut";
+        this.selectedPlantUnits = "lbs / acre";
+        this.getPrepop(this.selectedPlantName);
         break;
       case 8:
         this.selectedPlantName = "Pea";
+        this.selectedPlantUnits = "lbs / acre";
+        this.getPrepop(this.selectedPlantName);
+        break;
+      case 9:
+        this.selectedPlantName = "Lettuce";
+        this.selectedPlantUnits = "tons / acre";
+        this.getPrepop(this.selectedPlantName);
+        break;
+      case 10:
+        this.selectedPlantName = "Onion";
+        this.selectedPlantUnits = "tons / acre";
+        this.getPrepop(this.selectedPlantName);
+        break;
+      case 11:
+        this.selectedPlantName = "Spinach";
+        this.selectedPlantUnits = "tons / acre";
+        this.getPrepop(this.selectedPlantName);
         break;
     }
   }
 
+  getPrepop(plantName: string) {
+    this.plantService.getPrePopulateNutrient(plantName).subscribe(data =>{
+      this.plants = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data() as IPlantNutrients
+        }
+      })
+    });
+  }
+
   savePlant() {
-    console.log("this is working")
-    //hack to say that tons will be populated
     let amount: number = this.plant.tons!;
     this.plantService.calculatePlantNutrient(this.selectedPlantName, amount)
         .then(data =>{
@@ -225,39 +259,48 @@ export class NutrientRemovalComponent implements OnInit {
   }
 
   public openNutrientPDF():void {
-    let DATA = document.getElementById('NutrientData');
+    window.print();
+    // let DATA = document.getElementById('nutrientData');
       
-    html2canvas(DATA!).then(canvas => {
+    // html2canvas(DATA!).then(canvas => {
         
-        let fileWidth = 208;
-        let fileHeight = canvas.height * fileWidth / canvas.width;
+    //     let fileWidth = 208;
+    //     let fileHeight = canvas.height * fileWidth / canvas.width;
         
-        const FILEURI = canvas.toDataURL('image/png')
-        let PDF = new jsPDF('p', 'mm', 'a4');
-        let position = 0;
-        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
-        this.productService.uploadPDF(PDF);
-        PDF.save('nutrients.pdf');
-    });     
+    //     const FILEURI = canvas.toDataURL('image/png')
+    //     let PDF = new jsPDF('p', 'mm', 'a4');
+    //     let position = 0;
+    //     PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
+    //     // this.productService.uploadPDF(PDF);
+    //     PDF.save('nutrients.pdf');
+    // });     
   }
 
   public openFertPDF():void {
-    let DATA = document.getElementById('fertilizerData');
+    // let DATA = document.getElementById('fertilizerData');
       
-    html2canvas(DATA!).then(canvas => {
+    // html2canvas(DATA!).then(canvas => {
+    //     // let fileWidth = 208;
+    //     // let fileHeight = canvas.height * fileWidth / canvas.width;
         
-        let fileWidth = 208;
-        let fileHeight = canvas.height * fileWidth / canvas.width;
+    //     const FILEURI = canvas.toDataURL('image/png')
+    //     let PDF = new jsPDF('l', 'mm', 'a4');
+
+    //     const bufferX = 5;
+    //     const bufferY = 5;
+    //     const imgProps = (<any>PDF).getImageProperties(FILEURI);
+    //     const pdfWidth = PDF.internal.pageSize.getWidth() - 2 * bufferX;
+    //     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    //     PDF.addImage(FILEURI, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+
+
+    //     // let position = 0;
+    //     // PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
         
-        const FILEURI = canvas.toDataURL('image/png')
-        let PDF = new jsPDF('p', 'mm', 'a4');
-        let position = 0;
-        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
-        
-        PDF.save('fertilizer.pdf');
-        // TODO send pdf to storage https://jsmobiledev.com/article/cloud-function-image-base64
-        // this.productService.uploadPDF(PDF);
-    });     
-  }
-  
+    //     PDF.save('fertilizer.pdf');
+    //     // TODO send pdf to storage https://jsmobiledev.com/article/cloud-function-image-base64
+    //     // this.productService.uploadPDF(PDF);
+    // });     
+  } 
+
 }

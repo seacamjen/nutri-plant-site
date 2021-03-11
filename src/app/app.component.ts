@@ -10,20 +10,40 @@ import { AuthService } from "./service/auth.service";
 })
 export class AppComponent implements OnInit {
   items: MenuItem[];
+  userLoggedIn: boolean;
 
   constructor(private primengConfig: PrimeNGConfig, public authService: AuthService) {}
 
   ngOnInit() {
     this.primengConfig.ripple = true;
+
+    if(this.authService.isLoggedIn){
+      this.userLoggedIn = true;
+    } else {
+      this.userLoggedIn = false;
+    }
+
+    this.setItems();
+  }
+
+  signOut(){
+    this.userLoggedIn = false;
+    this.authService.signOut();
+    this.setItems();
+  }
+
+  setItems() {
     this.items = [
       {
           label:'Nutrient Removal',
           icon:'pi pi-fw pi-table',
-          routerLink: '/removal'
+          routerLink: '/removal',
+          visible: this.userLoggedIn
       },
       {
           label:'Products',
           icon:'pi pi-fw pi-globe',
+          visible: this.userLoggedIn,
           items:[
               {
                   label:'All Products',
@@ -34,6 +54,15 @@ export class AppComponent implements OnInit {
                   routerLink:'/create-product'
               }
           ]
+      },
+      {
+        label: 'Sign Out',
+        icon:'pi pi-fw pi-sign-out',
+        visible: this.userLoggedIn,
+        command: (event) => {
+          this.signOut();
+          console.log(event);
+        }
       }
     ];
   }

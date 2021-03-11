@@ -96,8 +96,6 @@ export class ProductService {
 
         resolve(this.unit);
       });
-
-      // resolve(this.unit);
     })
   }
 

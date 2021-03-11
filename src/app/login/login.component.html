@@ -13,7 +13,7 @@
   
         <div class="formGroup">
           <input type="button" class="btn btn-primary btn-block" value="Sign in"
-            (click)="authService.signIn(userName.value, userPassword.value)">
+            (click)="signIn(userName.value, userPassword.value)">
         </div>
   
         <div class="forgotPassword">
@@ -21,9 +21,9 @@
         </div>
       </div>
   
-      <div class="redirectToLogin">
+      <!-- <div class="redirectToLogin">
         <span>Not registered yet?<span class="redirect" routerLink="/sign-up"> Register</span></span>
-      </div>
+      </div> -->
   
     </div>
   </div>
