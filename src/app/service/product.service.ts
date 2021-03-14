@@ -79,20 +79,21 @@ export class ProductService {
 
       this.getProduct(productID).subscribe(resp => {
         let a = resp;
+        const weight = a.get('weight');
         this.unit.name = resp.get('name');
-        this.unit.nitrogen = parseFloat((a.get('nitrogen') * a.get('weight') * amount).toFixed(2));
-        this.unit.phosphorus = parseFloat((a.get('phosphorus') * a.get('weight') * amount).toFixed(2));
-        this.unit.potassium = parseFloat((a.get('potassium') * a.get('weight') * amount).toFixed(2));
-        this.unit.calcium = parseFloat((a.get('calcium') * a.get('weight') * amount).toFixed(2));
-        this.unit.magnesium = parseFloat((a.get('magnesium') * a.get('weight') * amount).toFixed(2));
-        this.unit.sulfate = parseFloat((a.get('sulfate') * a.get('weight') * amount).toFixed(2));
-        this.unit.iron = parseFloat((a.get('iron') * a.get('weight') * amount).toFixed(2));
-        this.unit.manganese = parseFloat((a.get('manganese') * a.get('weight') * amount).toFixed(2));
-        this.unit.copper = parseFloat((a.get('copper') * a.get('weight') * amount).toFixed(2));
-        this.unit.zinc = parseFloat((a.get('zinc') * a.get('weight') * amount).toFixed(2));
-        this.unit.boron = parseFloat((a.get('boron') * a.get('weight') * amount).toFixed(2));
-        this.unit.molybdenum = parseFloat((a.get('molybdenum') * a.get('weight') * amount).toFixed(2));
-        this.unit.carbon = parseFloat((a.get('carbon') * a.get('weight') * amount).toFixed(2));
+        this.unit.nitrogen = parseFloat((a.get('nitrogen') * weight * amount).toFixed(2));
+        this.unit.phosphorus = parseFloat((a.get('phosphorus') * weight * amount).toFixed(2));
+        this.unit.potassium = parseFloat((a.get('potassium') * weight * amount).toFixed(2));
+        this.unit.calcium = parseFloat((a.get('calcium') * weight * amount).toFixed(2));
+        this.unit.magnesium = parseFloat((a.get('magnesium') * weight * amount).toFixed(2));
+        this.unit.sulfate = parseFloat((a.get('sulfate') * weight * amount).toFixed(2));
+        this.unit.iron = parseFloat((a.get('iron') * weight * amount).toFixed(2));
+        this.unit.manganese = parseFloat((a.get('manganese') * weight * amount).toFixed(2));
+        this.unit.copper = parseFloat((a.get('copper') * weight * amount).toFixed(2));
+        this.unit.zinc = parseFloat((a.get('zinc') * weight * amount).toFixed(2));
+        this.unit.boron = parseFloat((a.get('boron') * weight * amount).toFixed(2));
+        this.unit.molybdenum = parseFloat((a.get('molybdenum') * weight * amount).toFixed(2));
+        this.unit.carbon = parseFloat((a.get('carbon') * weight * amount).toFixed(2));
 
         resolve(this.unit);
       });

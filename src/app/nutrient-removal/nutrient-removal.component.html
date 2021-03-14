@@ -1,14 +1,14 @@
 <div>
   <div class="p-d-flex p-jc-between" style="padding: 10px;">
-    <p-button type="button" (click)="visibleSidebar1 = true" icon="pi pi-arrow-down" class="d-print-none p-button-success"></p-button>
+    <p-button type="button" (click)="visibleSidebar1 = true" icon="pi pi-arrow-right" class="d-print-none p-button-success"></p-button>
     <button pButton pRipple label="Print" (click)="openNutrientPDF()" class="d-print-none p-button-success"></button>
   </div>
 
 
-  <p-sidebar [(visible)]="visibleSidebar1" position="top" [baseZIndex]="10000">
+  <p-sidebar [(visible)]="visibleSidebar1" position="left" [baseZIndex]="10000">
     <h1 style="font-weight:normal">Select a plant</h1>
 
-    <div class="p-d-flex">
+    <div class="p-d-flex p-flex-column">
       <div class="p-mr-2 p-mb-2">
         <button pButton pRipple type="button" (click)="selectPlant(1); visibleSidebar1 = false" label="Tomatos"
           class="p-button-raised"></button>
@@ -156,7 +156,6 @@
     </div>
     <div class="p-col-12">
       <p-toast></p-toast>
-      <!-- <button pButton pRipple label="PDF" (click)="openFertPDF()"></button> -->
       <div id="fertilizerData" class="card" style="border: solid indianred;">
         <p-table #dt [value]="products" styleClass="p-datatable-sm" [scrollable]="true" scrollHeight="575px"
           [rowHover]="true" dataKey="id">

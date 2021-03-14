@@ -27,6 +27,7 @@ export class NutrientRemovalComponent implements OnInit {
   submitted: boolean;
   submittedPlant: boolean;
   dropdownProds: any[];
+  prepopArray: number[];
   selectedDropdown: string;
   nitrogenTotal: number;
   phosphorusTotal: number;
@@ -129,6 +130,7 @@ export class NutrientRemovalComponent implements OnInit {
       return;
     }
 
+    this.productDialog = false;
     const productWeight = this.product.weight!;
     this.productService.calculateProduct(this.selectedDropdown, productWeight)
         .then(data => {
@@ -148,7 +150,6 @@ export class NutrientRemovalComponent implements OnInit {
           this.molybdenumTotal = parseFloat((this.molybdenumTotal + a.molybdenum!).toFixed(2));
           this.carbonTotal = parseFloat((this.carbonTotal + a.carbon!).toFixed(2));
           
-          this.productDialog = false;
           this.product = {};
           this.selectedDropdown = '';
         });
@@ -243,6 +244,7 @@ export class NutrientRemovalComponent implements OnInit {
           ...e.payload.doc.data() as IPlantNutrients
         }
       })
+      this.plants.sort((a, b) => (a.tons! > b.tons!) ? 1 : -1);
     });
   }
 
@@ -275,32 +277,4 @@ export class NutrientRemovalComponent implements OnInit {
     //     PDF.save('nutrients.pdf');
     // });     
   }
-
-  public openFertPDF():void {
-    // let DATA = document.getElementById('fertilizerData');
-      
-    // html2canvas(DATA!).then(canvas => {
-    //     // let fileWidth = 208;
-    //     // let fileHeight = canvas.height * fileWidth / canvas.width;
-        
-    //     const FILEURI = canvas.toDataURL('image/png')
-    //     let PDF = new jsPDF('l', 'mm', 'a4');
-
-    //     const bufferX = 5;
-    //     const bufferY = 5;
-    //     const imgProps = (<any>PDF).getImageProperties(FILEURI);
-    //     const pdfWidth = PDF.internal.pageSize.getWidth() - 2 * bufferX;
-    //     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    //     PDF.addImage(FILEURI, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
-
-
-    //     // let position = 0;
-    //     // PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
-        
-    //     PDF.save('fertilizer.pdf');
-    //     // TODO send pdf to storage https://jsmobiledev.com/article/cloud-function-image-base64
-    //     // this.productService.uploadPDF(PDF);
-    // });     
-  } 
-
 }
