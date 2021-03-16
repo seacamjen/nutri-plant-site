@@ -68,7 +68,7 @@
               <h2 class="p-m-0">{{selectedPlantName}} Nutrient Removal per {{selectedPlantUnits}}</h2>
 
               <span class="p-input-icon-left">
-                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+                <button pButton pRipple label="New" icon="pi pi-plus" class="d-print-none p-button-success p-mr-2"
                   (click)="openNewPlant()"></button>
               </span>
             </div>
@@ -109,7 +109,7 @@
               <td>{{plant.molybdenum}}</td>
               <td>{{plant.carbon}}</td>
               <td>
-                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                <button pButton pRipple icon="pi pi-trash" class="d-print-none p-button-rounded p-button-warning"
                   (click)="deletePlant(plant)"></button>
               </td>
             </tr>
@@ -163,7 +163,7 @@
             <div class="p-d-flex p-ai-center p-jc-between">
               <h2 class="p-m-0">Manage Fertilizers</h2>
               <span class="p-input-icon-left">
-                <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+                <button pButton pRipple label="New" icon="pi pi-plus" class="d-print-none p-button-success p-mr-2"
                   (click)="openNew()"></button>
               </span>
             </div>
@@ -208,7 +208,7 @@
               <td>
                 <!-- <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
                   (click)="editProduct(product)"></button> -->
-                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                <button pButton pRipple icon="pi pi-trash" class="d-print-none p-button-rounded p-button-warning"
                   (click)="deleteProduct(product)"></button>
               </td>
             </tr>
