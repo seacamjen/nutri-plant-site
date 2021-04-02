@@ -1,0 +1,40 @@
+.product-list-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+    border-bottom: 1px solid;
+}
+
+.product-list-detail {
+    flex: 1 1 0;
+}
+
+.product-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.product-description {
+    margin: 0 0 1rem 0;
+}
+
+.product-list-action {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-grid-item {
+    margin: .5em;
+    border: 1px solid grey;
+}
+
+.product-grid-item-content {
+    text-align: center;
+}
+
+.product-grid-item-bottom {
+    display: flex;
+    flex-direction: column;
+    padding: 5%;
+}

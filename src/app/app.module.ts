@@ -54,6 +54,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { AuthService } from "./service/auth.service";
+import { NutriFilesComponent } from './nutri-files/nutri-files.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { AuthService } from "./service/auth.service";
     DashboardComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    NutriFilesComponent
   ],
   imports: [
     BrowserModule,

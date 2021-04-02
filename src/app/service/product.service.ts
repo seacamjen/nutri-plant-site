@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from "@angular/fire/storage";
-import jsPDF from 'jspdf';
-import { Product, ProductCalc } from '../models/product';
+import { FertilizerTotals, Product, ProductCalc } from '../models/product';
+import { IPlantNutrients } from "../models/plant-nutrients";
 
 @Injectable({
   providedIn: 'root'
@@ -43,8 +43,26 @@ export class ProductService {
       molybdenum: product.molybdenum,
       carbon: product.carbon
     })
+  }
 
-    // return this.firestore.collection('products').add(product);
+  createNutrientRemovalRecord(plantData: IPlantNutrients[], productData: Product[], name: string, units: string, fertilizerTotals: FertilizerTotals) {
+    var id = this.generateUniqueID();
+    var currentDate = Date();
+
+    this.firestore.collection('ratePlan').doc(id).set({
+      plants: plantData,
+      products: productData,
+      date: currentDate,
+      account: null,
+      plantName: name,
+      plantUnits: units,
+      fertTotal: fertilizerTotals,
+      id: id
+    })
+  }
+
+  getNutrientRemovalRecords(){
+    return this.firestore.collection('ratePlan').snapshotChanges();
   }
 
   updateProduct(product: Product) {
@@ -53,16 +71,6 @@ export class ProductService {
 
   deleteProduct(productId: string) {
     this.firestore.doc('products/' + productId).delete();
-  }
-
-  uploadPDF(file: jsPDF) {
-    const id = Date.now().toString();
-    this.ref = this.fireStorage.ref(id);
-    var metadata = {
-      contentType: 'application/pdf'
-    }
-    console.log(file);
-    // this.task = this.ref.put(file, metadata);
   }
 
   generateUniqueID () {

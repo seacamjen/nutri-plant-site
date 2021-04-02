@@ -36,3 +36,19 @@ export class ProductCalc {
     molybdenum?: number;
     carbon?: number;
 }
+
+export class FertilizerTotals {
+    nitrogenTotal: number;
+    phosphorusTotal: number;
+    potassiumTotal: number;
+    calciumTotal: number;
+    magnesiumTotal: number;
+    sulfateTotal: number;
+    ironTotal: number;
+    manganeseTotal: number;
+    copperTotal: number;
+    zincTotal: number;
+    boronTotal: number;
+    molybdenumTotal: number;
+    carbonTotal: number;
+}

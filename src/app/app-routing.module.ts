@@ -9,6 +9,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { VerifyEmailComponent } from "./verify-email/verify-email.component";
 import { AuthGuard } from "./auth.guard";
+import { NutriFilesComponent } from './nutri-files/nutri-files.component';
 
 const routes: Routes = [
   { path: 'login', component:LoginComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'email-verification', component: VerifyEmailComponent },
   { path: 'create-product', component: NewProductComponent, canActivate: [AuthGuard] },
   { path: 'products', component: ProductListComponent, canActivate: [AuthGuard] },
-  { path: 'removal', component: NutrientRemovalComponent, canActivate: [AuthGuard] }
+  { path: 'removal', component: NutrientRemovalComponent, canActivate: [AuthGuard] },
+  { path: 'files', component: NutriFilesComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

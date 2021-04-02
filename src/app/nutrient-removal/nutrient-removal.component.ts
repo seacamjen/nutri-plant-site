@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, ConfirmationService, MessageService } from 'primeng/api';
 import { ProductService } from '../service/product.service';
-import { Product, ProductCalc } from '../models/product';
+import { Product, ProductCalc, FertilizerTotals } from '../models/product';
 import { PlantNutrientService } from "../service/plant-nutrient.service";
 import { IPlantNutrients } from "../models/plant-nutrients";
-// import jsPDF from 'jspdf';
-// import autoTable from 'jspdf-autotable';
-// import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-nutrient-removal',
@@ -261,20 +258,22 @@ export class NutrientRemovalComponent implements OnInit {
   }
 
   public openNutrientPDF():void {
+    const fertTotal = <FertilizerTotals> { 
+                        nitrogenTotal: this.nitrogenTotal,
+                        phosphorusTotal: this.phosphorusTotal,
+                        potassiumTotal: this.potassiumTotal,
+                        calciumTotal: this.calciumTotal,
+                        magnesiumTotal: this.magnesiumTotal,
+                        sulfateTotal: this.sulfateTotal,
+                        ironTotal: this.ironTotal,
+                        manganeseTotal: this.manganeseTotal,
+                        copperTotal: this.copperTotal,
+                        zincTotal: this.zincTotal,
+                        boronTotal: this.boronTotal,
+                        molybdenumTotal: this.molybdenumTotal,
+                        carbonTotal: this.carbonTotal 
+                      }
+    this.productService.createNutrientRemovalRecord(this.plants, this.products, this.selectedPlantName, this.selectedPlantUnits, fertTotal);
     window.print();
-    // let DATA = document.getElementById('nutrientData');
-      
-    // html2canvas(DATA!).then(canvas => {
-        
-    //     let fileWidth = 208;
-    //     let fileHeight = canvas.height * fileWidth / canvas.width;
-        
-    //     const FILEURI = canvas.toDataURL('image/png')
-    //     let PDF = new jsPDF('p', 'mm', 'a4');
-    //     let position = 0;
-    //     PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
-    //     // this.productService.uploadPDF(PDF);
-    //     PDF.save('nutrients.pdf');
-    // });     
   }
 }
