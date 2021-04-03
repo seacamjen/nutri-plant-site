@@ -61,6 +61,10 @@ export class ProductService {
     })
   }
 
+  deleteNutrientRemovalRecord(fileId: string) {
+    this.firestore.doc('ratePlan/' + fileId).delete();
+  }
+
   getNutrientRemovalRecords(){
     return this.firestore.collection('ratePlan').snapshotChanges();
   }

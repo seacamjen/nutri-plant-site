@@ -21,7 +21,9 @@
 
 .product-list-action {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 2px;
 }
 
 .product-grid-item {
@@ -35,6 +37,7 @@
 
 .product-grid-item-bottom {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 5%;
 }

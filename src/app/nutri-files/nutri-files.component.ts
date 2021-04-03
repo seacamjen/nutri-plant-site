@@ -3,6 +3,8 @@ import { Dialog } from 'primeng/dialog';
 import { IPlantNutrients } from '../models/plant-nutrients';
 import { FertilizerTotals, Product } from '../models/product';
 import { ProductService } from '../service/product.service';
+import {ConfirmationService, ConfirmEventType, MessageService} from 'primeng/api';
+import { SelectItem } from "primeng/api";
 
 class Files {
   account: string;
@@ -18,7 +20,8 @@ class Files {
 @Component({
   selector: 'app-nutri-files',
   templateUrl: './nutri-files.component.html',
-  styleUrls: ['./nutri-files.component.css']
+  styleUrls: ['./nutri-files.component.css'],
+  providers: [ConfirmationService]
 })
 export class NutriFilesComponent implements OnInit {
   plants: IPlantNutrients[];
@@ -27,6 +30,10 @@ export class NutriFilesComponent implements OnInit {
   plantUnits: string;
   collections: Files[];
   display: boolean = false;
+  sortOptions: SelectItem[];
+  sortKey: string;
+  sortField: string;
+  sortOrder: number;
 
   nitrogenTotal: number;
   phosphorusTotal: number;
@@ -42,7 +49,7 @@ export class NutriFilesComponent implements OnInit {
   molybdenumTotal: number;
   carbonTotal: number;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.productService.getNutrientRemovalRecords().subscribe(data => {
@@ -53,6 +60,26 @@ export class NutriFilesComponent implements OnInit {
         }
       })
     });
+
+    this.sortOptions = [
+      {label: 'Plant A-Z', value: 'plantName'},
+      {label: 'Plant Z-A', value: '!plantName'},
+      {label: 'Date Recent', value: '!date'},
+      {label: 'Date Last', value: 'date'}
+    ];
+  }
+
+  onSortChange(event: { value: any; }) {
+    let value = event.value;
+
+    if (value.indexOf('!') === 0) {
+        this.sortOrder = -1;
+        this.sortField = value.substring(1, value.length);
+    }
+    else {
+        this.sortOrder = 1;
+        this.sortField = value;
+    }
   }
 
   showFileDetails(plants: IPlantNutrients[], products: Product[], name: string, units: string, totals: FertilizerTotals) {
@@ -84,5 +111,16 @@ export class NutriFilesComponent implements OnInit {
 
   showFullDialog(dialog: Dialog) {
     dialog.maximize();
+  }
+
+  deleteFile(fileId: string) {
+      this.confirmationService.confirm({
+          message: 'Do you want to delete this record?',
+          header: 'Delete Confirmation',
+          icon: 'pi pi-info-circle',
+          accept: () => {
+            this.productService.deleteNutrientRemovalRecord(fileId);
+          }
+      });
   }
 }

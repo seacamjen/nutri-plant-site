@@ -1,9 +1,10 @@
 <div class="card">
-  <p-dataView #dv [value]="collections" [paginator]="true" [rows]="9" layout="list">
+  <p-dataView #dv [value]="collections" [paginator]="true" [rows]="9"
+    [sortField]="sortField" [sortOrder]="sortOrder" layout="list">
       <ng-template pTemplate="header">
-          <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-end">
-              <!-- <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
-              <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+          <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+              <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+              <!-- <span class="p-input-icon-left p-mb-2 p-mb-md-0">
                   <i class="pi pi-search"></i>
                   <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
               </span> -->
@@ -17,10 +18,12 @@
                       <div class="product-name">{{collection.plantName}}</div>
                       <div class="product-description">{{collection.date | date:'medium'}}</div>
                   </div>
-                  <div class="product-list-action">
-                    <button pButton pRipple type="button"
-                    (click)="showFileDetails(collection.plants, collection.products, collection.plantName, collection.plantUnits, collection.fertTotal)"
-                    icon="pi pi-eye" label="Show"></button>
+                  <div class="p-d-flex">
+                    <button class="p-mr-2" pButton pRipple type="button"
+                      (click)="showFileDetails(collection.plants, collection.products, collection.plantName, collection.plantUnits, collection.fertTotal)"
+                      icon="pi pi-eye" label="Show"></button>
+                    <button class="p-mr-2" pButton pRipple type="button" (click)="deleteFile(collection.id)"
+                      icon="pi pi-trash" label="Delete" class="p-button-outlined p-button-danger"></button>
                   </div>
               </div>
           </div>
@@ -34,14 +37,18 @@
                 </div>
                 <div class="product-grid-item-bottom">
                   <button pButton pRipple type="button"
-                  (click)="showFileDetails(collection.plants, collection.products, collection.plantName, collection.plantUnits, collection.fertTotal)"
-                  icon="pi pi-eye" label="Show"></button>
+                    (click)="showFileDetails(collection.plants, collection.products, collection.plantName, collection.plantUnits, collection.fertTotal)"
+                    icon="pi pi-eye" label="Show"></button>
+                  <button pButton pRipple type="button" (click)="deleteFile(collection.id)"
+                    icon="pi pi-trash" label="Delete" class="p-button-outlined p-button-danger"></button>
                 </div>
               </div>
           </div>
       </ng-template>
   </p-dataView>
 </div>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
 
 <p-dialog header="Report" [(visible)]="display" [maximizable]="true" (onShow)="showFullDialog(fileDetail)" #fileDetail>
   <button pButton pRipple label="Print" icon="pi pi-print" class="d-print-none p-mr-2"
