@@ -1,9 +1,24 @@
 <div>
   <div class="p-d-flex p-jc-between" style="padding: 10px;">
     <p-button type="button" (click)="visibleSidebar1 = true" icon="pi pi-arrow-right" class="d-print-none p-button-success"></p-button>
-    <button pButton pRipple label="Print" icon="pi pi-print" (click)="openNutrientPDF()" class="d-print-none p-button-success"></button>
+    <button pButton pRipple label="Save" icon="pi pi-save" (click)="openNewSave()" class="d-print-none p-button-success"></button>
   </div>
 
+  <p-dialog [(visible)]="saveDialog" [style]="{width: '450px'}" header="Save Plant Nutrient Details" [modal]="true"
+        styleClass="p-fluid">
+        <ng-template pTemplate="content">
+          <span class="p-float-label">
+            <input id="float-input" type="text" pInputText [(ngModel)]="clientName"> 
+            <label for="float-input">Client</label>
+          </span>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+          <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text"
+            (click)="hideSaveDialog()"></button>
+          <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="savePlantReport()"></button>
+        </ng-template>
+      </p-dialog>
 
   <p-sidebar [(visible)]="visibleSidebar1" position="left" [baseZIndex]="10000">
     <h1 style="font-weight:normal">Select a plant</h1>

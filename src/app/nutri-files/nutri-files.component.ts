@@ -15,6 +15,7 @@ class Files {
   plantUnits: string;
   plants: IPlantNutrients[];
   products: Product[];
+  clientName: string;
 }
 
 @Component({
@@ -62,6 +63,8 @@ export class NutriFilesComponent implements OnInit {
     });
 
     this.sortOptions = [
+      {label: 'Client A-Z', value: 'clientName'},
+      {label: 'Client Z-A', value: '!clientName'},
       {label: 'Plant A-Z', value: 'plantName'},
       {label: 'Plant Z-A', value: '!plantName'},
       {label: 'Date Recent', value: '!date'},

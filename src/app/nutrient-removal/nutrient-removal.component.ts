@@ -14,6 +14,7 @@ export class NutrientRemovalComponent implements OnInit {
   visibleSidebar1: boolean;
   isLoading = true;
   productDialog: boolean;
+  saveDialog: boolean;
   plantDialog: boolean;
   products: Product[];
   product: Product;
@@ -23,6 +24,7 @@ export class NutrientRemovalComponent implements OnInit {
   selectedPlants: IPlantNutrients[];
   submitted: boolean;
   submittedPlant: boolean;
+  submittedSave: boolean;
   dropdownProds: any[];
   prepopArray: number[];
   selectedDropdown: string;
@@ -43,6 +45,7 @@ export class NutrientRemovalComponent implements OnInit {
   selectedPlantID: number;
   selectedPlantUnits: string;
   calcObject: ProductCalc;
+  clientName: string;
 
   constructor(private primengConfig: PrimeNGConfig, 
     private messageService: MessageService, 
@@ -83,6 +86,12 @@ export class NutrientRemovalComponent implements OnInit {
       this.plantDialog = true;
     }
 
+    openNewSave() {
+      this.clientName = '';
+      this.submittedSave = false;
+      this.saveDialog = true;
+    }
+
     deleteProduct(product: Product) {
       this.confirmationService.confirm({
           message: 'Are you sure you want to delete ' + product.name + '?',
@@ -112,6 +121,11 @@ export class NutrientRemovalComponent implements OnInit {
   hideDialog() {
       this.productDialog = false;
       this.submitted = false;
+  }
+
+  hideSaveDialog() {
+      this.saveDialog = false;
+      this.submittedSave = false;
   }
 
   hidePlantDialog() {
@@ -257,7 +271,7 @@ export class NutrientRemovalComponent implements OnInit {
         })
   }
 
-  public openNutrientPDF():void {
+  public savePlantReport():void {
     const fertTotal = <FertilizerTotals> { 
                         nitrogenTotal: this.nitrogenTotal,
                         phosphorusTotal: this.phosphorusTotal,
@@ -273,7 +287,8 @@ export class NutrientRemovalComponent implements OnInit {
                         molybdenumTotal: this.molybdenumTotal,
                         carbonTotal: this.carbonTotal 
                       }
-    this.productService.createNutrientRemovalRecord(this.plants, this.products, this.selectedPlantName, this.selectedPlantUnits, fertTotal);
-    window.print();
+    this.productService.createNutrientRemovalRecord(this.plants, this.products, this.selectedPlantName, this.selectedPlantUnits, fertTotal, this.clientName);
+    this.hideSaveDialog();
+    this.messageService.add({severity:'info', summary:'Saved', detail:'Your Nutrient Removal Plan has been saved.'});
   }
 }

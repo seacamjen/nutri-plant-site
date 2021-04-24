@@ -1,12 +1,12 @@
 <div class="card">
   <p-dataView #dv [value]="collections" [paginator]="true" [rows]="9"
-    [sortField]="sortField" [sortOrder]="sortOrder" layout="list">
+    [sortField]="sortField" [sortOrder]="sortOrder" layout="list" filterBy="clientName">
       <ng-template pTemplate="header">
           <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
               <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort" (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
               <!-- <span class="p-input-icon-left p-mb-2 p-mb-md-0">
                   <i class="pi pi-search"></i>
-                  <input type="search" pInputText placeholder="Search by Name" (input)="dv.filter($event.target.value)">
+                  <input type="search" pInputText placeholder="Search by Client" (input)="dv.filter($event.target.value)">
               </span> -->
               <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
           </div>
@@ -16,6 +16,9 @@
               <div class="product-list-item">
                   <div class="product-list-detail">
                       <div class="product-name">{{collection.plantName}}</div>
+                      <div class="account-name" *ngIf="collection.clientName">
+                        {{collection.clientName}}
+                      </div>
                       <div class="product-description">{{collection.date | date:'medium'}}</div>
                   </div>
                   <div class="p-d-flex">
@@ -32,7 +35,7 @@
           <div class="p-col-12 p-md-4">
               <div class="product-grid-item card">
                 <div class="product-grid-item-content">
-                  <div class="product-name">{{collection.plantName}}</div>
+                  <div class="product-name">{{collection.plantName}} - {{collection.clientName}}</div>
                   <div class="product-description">{{collection.date | date:'medium'}}</div>
                 </div>
                 <div class="product-grid-item-bottom">

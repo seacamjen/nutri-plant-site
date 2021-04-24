@@ -48,6 +48,8 @@ import { RatingModule } from 'primeng/rating';
 import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenubarModule } from 'primeng/menubar';
+import { TagModule } from 'primeng/tag';
+
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -107,7 +109,8 @@ import { NutriFilesComponent } from './nutri-files/nutri-files.component';
     FileUploadModule,
     RatingModule,
     InputTextareaModule,
-    MenubarModule
+    MenubarModule,
+    TagModule
   ],
   providers: [ConfirmationService, PrimeNGConfig, FilterService, MessageService, ProductService, AuthService],
   bootstrap: [AppComponent]

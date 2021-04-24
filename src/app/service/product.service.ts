@@ -45,7 +45,7 @@ export class ProductService {
     })
   }
 
-  createNutrientRemovalRecord(plantData: IPlantNutrients[], productData: Product[], name: string, units: string, fertilizerTotals: FertilizerTotals) {
+  createNutrientRemovalRecord(plantData: IPlantNutrients[], productData: Product[], name: string, units: string, fertilizerTotals: FertilizerTotals, nameClient: string) {
     var id = this.generateUniqueID();
     var currentDate = Date();
 
@@ -53,7 +53,7 @@ export class ProductService {
       plants: plantData,
       products: productData,
       date: currentDate,
-      account: null,
+      clientName: nameClient,
       plantName: name,
       plantUnits: units,
       fertTotal: fertilizerTotals,

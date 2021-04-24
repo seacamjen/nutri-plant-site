@@ -37,8 +37,17 @@ export class AppComponent implements OnInit {
       {
           label:'Nutrient Removal',
           icon:'pi pi-fw pi-table',
-          routerLink: '/removal',
-          visible: this.userLoggedIn
+          visible: this.userLoggedIn,
+          items:[
+            {
+              label: 'New Nutrient Report',
+              routerLink: '/removal'
+            },
+            {
+              label: 'Previous Nutrient Report',
+              routerLink: '/files'
+            }
+          ]
       },
       {
           label:'Products',
