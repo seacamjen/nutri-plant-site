@@ -75,38 +75,38 @@
           <ng-template pTemplate="header" let-nutriColumns>
             <tr>
               <th>Amount</th>
-              <th>N</th>
-              <th>P</th>
-              <th>K2O</th>
-              <th>Ca</th>
-              <th>Mg</th>
-              <th>SO4</th>
-              <th>Fe</th>
-              <th>Mn</th>
-              <th>Cu</th>
-              <th>Zn</th>
-              <th>B</th>
-              <th>Mo</th>
-              <th>Carbon</th>
+              <th *ngIf="nitrogenExists">N</th>
+              <th *ngIf="phosphorusExists">P</th>
+              <th *ngIf="potassiumExists">K2O</th>
+              <th *ngIf="calciumExists">Ca</th>
+              <th *ngIf="magnesiumExists">Mg</th>
+              <th *ngIf="sulfateExists">SO4</th>
+              <th *ngIf="ironExists">Fe</th>
+              <th *ngIf="manganeseExists">Mn</th>
+              <th *ngIf="copperExists">Cu</th>
+              <th *ngIf="zincExists">Zn</th>
+              <th *ngIf="boronExists">B</th>
+              <th *ngIf="molybdenumExists">Mo</th>
+              <th *ngIf="carbonExists">Carbon</th>
               <th></th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-plant>
             <tr>
               <td>{{plant.tons}}</td>
-              <td>{{plant.nitrogen}}</td>
-              <td>{{plant.phosphorus}}</td>
-              <td>{{plant.potassium}}</td>
-              <td>{{plant.calcium}}</td>
-              <td>{{plant.magnesium}}</td>
-              <td>{{plant.sulfate}}</td>
-              <td>{{plant.iron}}</td>
-              <td>{{plant.manganese}}</td>
-              <td>{{plant.copper}}</td>
-              <td>{{plant.zinc}}</td>
-              <td>{{plant.boron}}</td>
-              <td>{{plant.molybdenum}}</td>
-              <td>{{plant.carbon}}</td>
+              <td *ngIf="nitrogenExists">{{plant.nitrogen}}</td>
+              <td *ngIf="phosphorusExists">{{plant.phosphorus}}</td>
+              <td *ngIf="potassiumExists">{{plant.potassium}}</td>
+              <td *ngIf="calciumExists">{{plant.calcium}}</td>
+              <td *ngIf="magnesiumExists">{{plant.magnesium}}</td>
+              <td *ngIf="sulfateExists">{{plant.sulfate}}</td>
+              <td *ngIf="ironExists">{{plant.iron}}</td>
+              <td *ngIf="manganeseExists">{{plant.manganese}}</td>
+              <td *ngIf="copperExists">{{plant.copper}}</td>
+              <td *ngIf="zincExists">{{plant.zinc}}</td>
+              <td *ngIf="boronExists">{{plant.boron}}</td>
+              <td *ngIf="molybdenumExists">{{plant.molybdenum}}</td>
+              <td *ngIf="carbonExists">{{plant.carbon}}</td>
               <td>
               </td>
             </tr>
@@ -114,19 +114,19 @@
           <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
               <span style="padding-left: 0px; width: 75px;" class="p-col-fixed"> Fertilizer Total:</span>
-              <span class="p-col">N: <br> {{nitrogenTotal}}</span>
-              <span class="p-col">P: <br> {{phosphorusTotal}}</span>
-              <span class="p-col">K: <br> {{potassiumTotal}}</span>
-              <span class="p-col">Ca: <br> {{calciumTotal}}</span>
-              <span class="p-col">Mg: <br> {{magnesiumTotal}}</span>
-              <span class="p-col">SO4: <br> {{sulfateTotal}}</span>
-              <span class="p-col">Fe: <br> {{ironTotal}}</span>
-              <span class="p-col">Mn: <br> {{manganeseTotal}}</span>
-              <span class="p-col">Cu: <br> {{copperTotal}}</span>
-              <span class="p-col">Zn: <br> {{zincTotal}}</span>
-              <span class="p-col">B: <br> {{boronTotal}}</span>
-              <span class="p-col">Mo: <br> {{molybdenumTotal}}</span>
-              <span class="p-col">C: <br> {{carbonTotal}}</span>
+              <span style="padding-left: 4%;" *ngIf="nitrogenExists" class="p-col">N: <br> {{nitrogenTotal}}</span>
+              <span *ngIf="phosphorusExists" class="p-col">P: <br> {{phosphorusTotal}}</span>
+              <span *ngIf="potassiumExists" class="p-col">K: <br> {{potassiumTotal}}</span>
+              <span *ngIf="calciumExists" class="p-col">Ca: <br> {{calciumTotal}}</span>
+              <span *ngIf="magnesiumExists" class="p-col">Mg: <br> {{magnesiumTotal}}</span>
+              <span *ngIf="sulfateExists" class="p-col">SO4: <br> {{sulfateTotal}}</span>
+              <span *ngIf="ironExists" class="p-col">Fe: <br> {{ironTotal}}</span>
+              <span *ngIf="manganeseExists" class="p-col">Mn: <br> {{manganeseTotal}}</span>
+              <span *ngIf="copperExists" class="p-col">Cu: <br> {{copperTotal}}</span>
+              <span *ngIf="zincExists" class="p-col">Zn: <br> {{zincTotal}}</span>
+              <span *ngIf="boronExists" class="p-col">B: <br> {{boronTotal}}</span>
+              <span *ngIf="molybdenumExists" class="p-col">Mo: <br> {{molybdenumTotal}}</span>
+              <span *ngIf="carbonExists" class="p-col">C: <br> {{carbonTotal}}</span>
               <span class="p-col"></span>
             </div>
           </ng-template>
@@ -149,19 +149,19 @@
             <tr>
               <th>Name</th>
               <th>Amount</th>
-              <th>N</th>
-              <th>P</th>
-              <th>K2O</th>
-              <th>Ca</th>
-              <th>Mg</th>
-              <th>SO4</th>
-              <th>Fe</th>
-              <th>Mn</th>
-              <th>Cu</th>
-              <th>Zn</th>
-              <th>B</th>
-              <th>Mo</th>
-              <th>Carbon</th>
+              <th *ngIf="nitrogenExists">N</th>
+              <th *ngIf="phosphorusExists">P</th>
+              <th *ngIf="potassiumExists">K2O</th>
+              <th *ngIf="calciumExists">Ca</th>
+              <th *ngIf="magnesiumExists">Mg</th>
+              <th *ngIf="sulfateExists">SO4</th>
+              <th *ngIf="ironExists">Fe</th>
+              <th *ngIf="manganeseExists">Mn</th>
+              <th *ngIf="copperExists">Cu</th>
+              <th *ngIf="zincExists">Zn</th>
+              <th *ngIf="boronExists">B</th>
+              <th *ngIf="molybdenumExists">Mo</th>
+              <th *ngIf="carbonExists">Carbon</th>
               <th></th>
             </tr>
           </ng-template>
@@ -169,19 +169,19 @@
             <tr>
               <td>{{product.name}}</td>
               <td>{{product.amount}}</td>
-              <td>{{product.nitrogen}}</td>
-              <td>{{product.phosphorus}}</td>
-              <td>{{product.potassium}}</td>
-              <td>{{product.calcium}}</td>
-              <td>{{product.magnesium}}</td>
-              <td>{{product.sulfate}}</td>
-              <td>{{product.iron}}</td>
-              <td>{{product.manganese}}</td>
-              <td>{{product.copper}}</td>
-              <td>{{product.zinc}}</td>
-              <td>{{product.boron}}</td>
-              <td>{{product.molybdenum}}</td>
-              <td>{{product.carbon}}</td>
+              <td *ngIf="nitrogenExists">{{product.nitrogen}}</td>
+              <td *ngIf="phosphorusExists">{{product.phosphorus}}</td>
+              <td *ngIf="potassiumExists">{{product.potassium}}</td>
+              <td *ngIf="calciumExists">{{product.calcium}}</td>
+              <td *ngIf="magnesiumExists">{{product.magnesium}}</td>
+              <td *ngIf="sulfateExists">{{product.sulfate}}</td>
+              <td *ngIf="ironExists">{{product.iron}}</td>
+              <td *ngIf="manganeseExists">{{product.manganese}}</td>
+              <td *ngIf="copperExists">{{product.copper}}</td>
+              <td *ngIf="zincExists">{{product.zinc}}</td>
+              <td *ngIf="boronExists">{{product.boron}}</td>
+              <td *ngIf="molybdenumExists">{{product.molybdenum}}</td>
+              <td *ngIf="carbonExists">{{product.carbon}}</td>
               <td>
               </td>
             </tr>
@@ -189,19 +189,19 @@
           <ng-template pTemplate="summary">
             <div class="p-d-flex p-ai-center p-jc-between">
               <span style="padding-left: 0px; width: 150px;" class="p-col-fixed"> Fertilizer Total:</span>
-              <span class="p-col">N: {{nitrogenTotal}}</span>
-              <span class="p-col">P: {{phosphorusTotal}}</span>
-              <span class="p-col">K: {{potassiumTotal}}</span>
-              <span class="p-col">Ca: {{calciumTotal}}</span>
-              <span class="p-col">Mg: {{magnesiumTotal}}</span>
-              <span class="p-col">SO4: {{sulfateTotal}}</span>
-              <span class="p-col">Fe: {{ironTotal}}</span>
-              <span class="p-col">Mn: {{manganeseTotal}}</span>
-              <span class="p-col">Cu: {{copperTotal}}</span>
-              <span class="p-col">Zn: {{zincTotal}}</span>
-              <span class="p-col">B: {{boronTotal}}</span>
-              <span class="p-col">Mo: {{molybdenumTotal}}</span>
-              <span class="p-col">C: {{carbonTotal}}</span>
+              <span style="padding-left: 6%" *ngIf="nitrogenExists" class="p-col">N: {{nitrogenTotal}}</span>
+              <span *ngIf="phosphorusExists" class="p-col">P: {{phosphorusTotal}}</span>
+              <span *ngIf="potassiumExists" class="p-col">K: {{potassiumTotal}}</span>
+              <span *ngIf="calciumExists" class="p-col">Ca: {{calciumTotal}}</span>
+              <span *ngIf="magnesiumExists" class="p-col">Mg: {{magnesiumTotal}}</span>
+              <span *ngIf="sulfateExists" class="p-col">SO4: {{sulfateTotal}}</span>
+              <span *ngIf="ironExists" class="p-col">Fe: {{ironTotal}}</span>
+              <span *ngIf="manganeseExists" class="p-col">Mn: {{manganeseTotal}}</span>
+              <span *ngIf="copperExists" class="p-col">Cu: {{copperTotal}}</span>
+              <span *ngIf="zincExists" class="p-col">Zn: {{zincTotal}}</span>
+              <span *ngIf="boronExists" class="p-col">B: {{boronTotal}}</span>
+              <span *ngIf="molybdenumExists" class="p-col">Mo: {{molybdenumTotal}}</span>
+              <span *ngIf="carbonExists" class="p-col">C: {{carbonTotal}}</span>
               <span class="p-col"></span>
             </div>
           </ng-template>

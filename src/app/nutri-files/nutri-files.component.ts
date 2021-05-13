@@ -50,6 +50,20 @@ export class NutriFilesComponent implements OnInit {
   molybdenumTotal: number;
   carbonTotal: number;
 
+  nitrogenExists: boolean = false;
+  phosphorusExists: boolean = false;
+  potassiumExists: boolean = false;
+  calciumExists: boolean = false;
+  magnesiumExists: boolean = false;
+  sulfateExists: boolean = false;
+  ironExists: boolean = false;
+  manganeseExists: boolean = false;
+  copperExists: boolean = false;
+  zincExists: boolean = false;
+  boronExists: boolean = false;
+  molybdenumExists: boolean = false;
+  carbonExists: boolean = false;
+
   constructor(private productService: ProductService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
@@ -85,12 +99,76 @@ export class NutriFilesComponent implements OnInit {
     }
   }
 
+  checkColumns(plants: IPlantNutrients[]){
+    var keepcolumns = new Array<string>();
+    plants.forEach(plant => {
+      if (plant.boron! > 0) {
+        this.boronExists = true;
+      } 
+      if (plant.calcium! > 0) {
+        this.calciumExists = true;
+      }
+      if (plant.carbon! > 0) {
+        this.carbonExists = true;
+      }
+      if (plant.copper! > 0) {
+        this.copperExists = true;
+      }
+      if (plant.iron! > 0) {
+        this.ironExists = true;
+      }
+      if (plant.magnesium! > 0) {
+        this.magnesiumExists = true;
+      }
+      if (plant.manganese! > 0) {
+        this.manganeseExists = true;
+      }
+      if (plant.molybdenum! > 0) {
+        this.molybdenumExists = true;
+      }
+      if (plant.nitrogen! > 0) {
+        this.nitrogenExists = true;
+      }
+      if (plant.phosphorus! > 0) {
+        this.phosphorusExists = true;
+      }
+      if (plant.potassium! > 0) {
+        this.potassiumExists = true;
+      }
+      if (plant.sulfate! > 0) {
+        this.sulfateExists = true;
+      }
+      if (plant.zinc! > 0) {
+        this.zincExists = true;
+      }
+    });
+  }
+
   showFileDetails(plants: IPlantNutrients[], products: Product[], name: string, units: string, totals: FertilizerTotals) {
+    this.checkColumns(plants);
     this.plants = plants;
     this.products = products;
     this.plantName = name;
     this.plantUnits = units;
 
+    // var summary = <IPlantNutrients>{
+    //     amount: "Fertilizer Total:", 
+    //     nitrogen: totals.nitrogenTotal,
+    //     phosphorus: totals.phosphorusTotal,
+    //     potassium: totals.potassiumTotal,
+    //     calcium: totals.calciumTotal,
+    //     magnesium: totals.magnesiumTotal,
+    //     sulfate: totals.sulfateTotal,
+    //     iron: totals.ironTotal,
+    //     manganese: totals.magnesiumTotal,
+    //     copper: totals.copperTotal,
+    //     zinc: totals.zincTotal,
+    //     boron: totals.boronTotal,
+    //     molybdenum: totals.molybdenumTotal,
+    //     carbon: totals.carbonTotal
+    //   };
+
+    // this.plants.push(summary);
     this.nitrogenTotal = totals.nitrogenTotal;
     this.phosphorusTotal = totals.phosphorusTotal;
     this.potassiumTotal = totals.potassiumTotal;
@@ -109,6 +187,20 @@ export class NutriFilesComponent implements OnInit {
   }
 
   printDialog() {
+    this.PRINT(true);
+  }
+
+  PRINT(landscape: boolean) {
+    var head = document.head || document.getElementsByTagName('head')[0];
+    var style = document.createElement('style');
+    style.type = 'text/css';
+    style.media = 'print';
+  
+    style.appendChild(document.createTextNode(landscape ?
+      '@page { size: Letter landscape; margin: 0in; height: 100%; width: 100%;}' :
+      '@page { size: Letter;  margin: 0in; }'));
+  
+    head.appendChild(style);
     window.print();
   }
 
